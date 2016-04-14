@@ -1,0 +1,64 @@
+---
+title: "Assignment-Modeling"
+author: "Shary Beshara"
+date: "April 14, 2016"
+output: html_document
+---
+
+
+```{r message=FALSE}
+library(dplyr)
+library(RWeka)
+```
+
+Loading sonar data:
+```{r}
+sonar <- read.csv("~/Desktop/sonar.all-data.csv", header=FALSE)
+```
+
+Constructing a C4.5 decision tree using the entire dataset
+```{r}
+fit <- J48(V61~., data=sonar)
+```
+
+Getting summary of training:
+```{r}
+c4.5_summary <- summary(fit) 
+c4.5_summary
+```
+
+Calculating classification evaluation measures:
+```{r}
+TM <- c4.5_summary$confusionMatrix[1, 1]
+TR <- c4.5_summary$confusionMatrix[2, 2]
+FM <- c4.5_summary$confusionMatrix[2,1]
+FR <- c4.5_summary$confusionMatrix[1,2]
+accuracy <- (TM + TR) /(TM + TR + FM + FR)
+error_rate <- 1 - accuracy
+precision <- TM / (TM + FM)
+recall <- TM / (TM + FR)
+f1 <- 2 * (precision * recall /(precision + recall))
+cat("Accuracy = ", accuracy, ", Error rate = ", error_rate, ", Precision = ", precision, ", Recall = ", recall, ", f-score = ", f1)
+```
+We can notice the over-fitting because the training and testing of the classifier are done with the same dataset.
+
+Testing C4.5classifier using a 10-fold cross-validation:
+```{r}
+c4.5_cv <- evaluate_Weka_classifier(fit, numFolds = 10)
+c4.5_cv
+```
+
+Calculating classification evaluation measures:
+```{r}
+TM <- c4.5_cv$confusionMatrix[1, 1]
+TR <- c4.5_cv$confusionMatrix[2, 2]
+FM <- c4.5_cv$confusionMatrix[2,1]
+FR <- c4.5_cv$confusionMatrix[1,2]
+accuracy <- (TM + TR) /(TM + TR + FM + FR)
+error_rate <- 1 - accuracy
+precision <- TM / (TM + FM)
+recall <- TM / (TM + FR)
+f1 <- 2 * (precision * recall /(precision + recall))
+cat("Accuracy = ", accuracy, ", Error rate = ", error_rate, ", Precision = ", precision, ", Recall = ", recall, ", f-score = ", f1)
+```
+This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times
