@@ -27,38 +27,124 @@ c4.5_summary <- summary(fit)
 c4.5_summary
 ```
 
+Create Map of measrures:
+```{r}
+measuresMap <- function(classifier){
+  map <- new.env(hash=T, parent=emptyenv())
+  map[["TM"]] <- classifier$confusionMatrix[1, 1]
+  map[["TR"]] <- classifier$confusionMatrix[2, 2]
+  map[["FM"]] <- classifier$confusionMatrix[2,1]
+  map[["FR"]] <- classifier$confusionMatrix[1,2]
+  map[["Accuracy"]] <- (map[["TM"]] + map[["TR"]]) /(map[["TM"]] + map[["TR"]] +     map[["FM"]] + map[["FR"]])
+  map[["Error_rate"]] <- 1 - map[["Accuracy"]]
+  map[["Precision"]]  <- map[["TM"]] / (map[["TM"]] + map[["FM"]])
+  map[["Recall"]]  <- map[["TM"]] / (map[["TM"]] + map[["FR"]])
+  map[["F-score"]]  <- 2 * (map[["Precision"]] * map[["Recall"]] /(map[["Precision"]] + map[["Recall"]]))
+  return (map)
+}
+```
+
 Calculating classification evaluation measures:
 ```{r}
-TM <- c4.5_summary$confusionMatrix[1, 1]
-TR <- c4.5_summary$confusionMatrix[2, 2]
-FM <- c4.5_summary$confusionMatrix[2,1]
-FR <- c4.5_summary$confusionMatrix[1,2]
-accuracy <- (TM + TR) /(TM + TR + FM + FR)
-error_rate <- 1 - accuracy
-precision <- TM / (TM + FM)
-recall <- TM / (TM + FR)
-f1 <- 2 * (precision * recall /(precision + recall))
-cat("Accuracy = ", accuracy, ", Error rate = ", error_rate, ", Precision = ", precision, ", Recall = ", recall, ", f-score = ", f1)
+c4.5 <- measuresMap(c4.5_summary)
+cat("Accuracy = ", c4.5[["Accuracy"]], ", Error rate = ", c4.5[["Error_rate"]], ", Precision = ", c4.5[["Precision"]], ", Recall = ", c4.5[["Recall"]], ", F-score = ", c4.5[["F-score"]])
 ```
 We can notice the over-fitting because the training and testing of the classifier are done with the same dataset.
 
 Testing C4.5classifier using a 10-fold cross-validation:
 ```{r}
-c4.5_cv <- evaluate_Weka_classifier(fit, numFolds = 10)
-c4.5_cv
+C4.5CV <- evaluate_Weka_classifier(fit, numFolds = 10)
+C4.5CV
 ```
 
 Calculating classification evaluation measures:
 ```{r}
-TM <- c4.5_cv$confusionMatrix[1, 1]
-TR <- c4.5_cv$confusionMatrix[2, 2]
-FM <- c4.5_cv$confusionMatrix[2,1]
-FR <- c4.5_cv$confusionMatrix[1,2]
-accuracy <- (TM + TR) /(TM + TR + FM + FR)
-error_rate <- 1 - accuracy
-precision <- TM / (TM + FM)
-recall <- TM / (TM + FR)
-f1 <- 2 * (precision * recall /(precision + recall))
-cat("Accuracy = ", accuracy, ", Error rate = ", error_rate, ", Precision = ", precision, ", Recall = ", recall, ", f-score = ", f1)
+c4.5_cv <- measuresMap(C4.5CV)
+cat("Accuracy = ", c4.5_cv[["Accuracy"]], ", Error rate = ", c4.5_cv[["Error_rate"]], ", Precision = ", c4.5_cv[["Precision"]], ", Recall = ", c4.5_cv[["Recall"]], ", F-score = ", c4.5_cv[["F-score"]])
 ```
 This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times
+
+Randomforest
+```{r}
+RF <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
+randomForest <- RF(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+rf <- measuresMap(randomForest)
+cat("Accuracy = ", rf[["Accuracy"]], ", Error rate = ", rf[["Error_rate"]], ", Precision = ", rf[["Precision"]], ", Recall = ", rf[["Recall"]], ", F-score = ", rf[["F-score"]])
+```
+
+SVM
+```{r}
+SVM = SMO(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+svm <- measuresMap(SVM)
+cat("Accuracy = ", svm[["Accuracy"]], ", Error rate = ", svm[["Error_rate"]], ", Precision = ", svm[["Precision"]], ", Recall = ", svm[["Recall"]], ", F-score = ", svm[["F-score"]])
+```
+
+Naive Bayes
+```{r}
+NB <- make_Weka_classifier("weka/classifiers/bayes/NaiveBayes")
+naiveBayes<- NB(V61~., data=sonar) %>% evaluate_Weka_classifier( numFolds = 10)
+nb <- measuresMap(naiveBayes)
+cat("Accuracy = ", nb[["Accuracy"]], ", Error rate = ", nb[["Error_rate"]], ", Precision = ", nb[["Precision"]], ", Recall = ", nb[["Recall"]], ", F-score = ", nb[["F-score"]])
+```
+
+Neural Networks
+```{r}
+NN <- make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
+neuralNetwork<- NN(V61~., data=sonar) %>% evaluate_Weka_classifier( numFolds = 10)
+nn <- measuresMap(neuralNetwork)
+cat("Accuracy = ", nn[["Accuracy"]], ", Error rate = ", nn[["Error_rate"]], ", Precision = ", nn[["Precision"]], ", Recall = ", nn[["Recall"]], ", F-score = ", nn[["F-score"]])
+```
+
+Bagging:
+```{r}
+BAG = Bagging(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+bag <- measuresMap(BAG)
+cat("Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ", Precision = ", bag[["Precision"]], ", Recall = ", bag[["Recall"]], ", F-score = ", bag[["F-score"]])
+```
+
+Boosting:
+```{r}
+BOOST = AdaBoostM1(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+boost <- measuresMap(BOOST)
+cat("Accuracy = ", boost[["Accuracy"]], ", Error rate = ", boost[["Error_rate"]], ", Precision = ", boost[["Precision"]], ", Recall = ", boost[["Recall"]], ", F-score = ", boost[["F-score"]])
+```
+
+Compare between Bagging, Boosting and C4.5:
+```{r}
+cat("C4.5 measures:"," Accuracy = ", c4.5_cv[["Accuracy"]], ", Error rate = ", c4.5_cv[["Error_rate"]], ", Precision = ", c4.5_cv[["Precision"]], ", Recall = ", c4.5_cv[["Recall"]], ", F-score = ", c4.5_cv[["F-score"]])
+cat("Bagging measures:","Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ", Precision = ", bag[["Precision"]], ", Recall = ", bag[["Recall"]], ", F-score = ", bag[["F-score"]])
+cat("Boosting measures:", " Accuracy = ", boost[["Accuracy"]], ", Error rate = ", boost[["Error_rate"]], ", Precision = ", boost[["Precision"]], ", Recall = ", boost[["Recall"]], ", F-score = ", boost[["F-score"]])
+```
+So we can see from the result that all the measures are approximetly the same in the 3 classifiers except for the recall which is better in bagging and boosting than in C4.5 classifier.
+
+Loading hepatitis data:
+```{r}
+hepa <- read.csv("~/Downloads/hepatitis.data.txt", header=FALSE)
+hepa$V1 <- as.factor(hepa$V1)
+```
+
+Loading spect data:
+```{r}
+spect.train <- read.csv("~/Downloads/SPECT.train.txt", header=FALSE)
+spect.test <- read.csv("~/Downloads/SPECT.test.txt", header=FALSE)
+spect <- rbind(spect.test, spect.train)
+spect$V1 <- as.factor(spect$V1)
+```
+
+Loading diabetes data:
+```{r}
+diabetes <- read.csv("~/Downloads/pima-indians-diabetes.data.txt", header=FALSE)
+diabetes$V9 <- as.factor(diabetes$V9)
+```
+
+```{r}
+hepaClassification <- function(c){
+  l <- list()
+  
+  for(i in 1:10){
+    classifier <- c(V1~., data=hepa) %>% evaluate_Weka_classifier(numFolds = 10)
+    l[[i]] <- measuresMap(classifier)
+  }
+  return(l)
+}
+```
