@@ -176,26 +176,26 @@ C4.5CV</code></pre>
 ## 
 ## === Summary ===
 ## 
-## Correctly Classified Instances         143               68.75   %
-## Incorrectly Classified Instances        65               31.25   %
-## Kappa statistic                          0.3685
-## Mean absolute error                      0.3169
-## Root mean squared error                  0.5492
-## Relative absolute error                 63.6586 %
-## Root relative squared error            110.0697 %
-## Coverage of cases (0.95 level)          72.5962 %
-## Mean rel. region size (0.95 level)      54.8077 %
+## Correctly Classified Instances         155               74.5192 %
+## Incorrectly Classified Instances        53               25.4808 %
+## Kappa statistic                          0.4871
+## Mean absolute error                      0.2665
+## Root mean squared error                  0.4978
+## Relative absolute error                 53.525  %
+## Root relative squared error             99.78   %
+## Coverage of cases (0.95 level)          78.3654 %
+## Mean rel. region size (0.95 level)      56.0096 %
 ## Total Number of Instances              208     
 ## 
 ## === Confusion Matrix ===
 ## 
 ##   a  b   &lt;-- classified as
-##  83 28 |  a = M
-##  37 60 |  b = R</code></pre>
+##  86 25 |  a = M
+##  28 69 |  b = R</code></pre>
 <p>Calculating classification evaluation measures:</p>
 <pre class="r"><code>c4.5_cv &lt;- measuresMap(C4.5CV)
 cat(&quot;Accuracy = &quot;, c4.5_cv[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, c4.5_cv[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, c4.5_cv[[&quot;Precision&quot;]], &quot;, Recall = &quot;, c4.5_cv[[&quot;Recall&quot;]], &quot;, F-score = &quot;, c4.5_cv[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Accuracy =  0.6875 , Error rate =  0.3125 , Precision =  0.6916667 , Recall =  0.7477477 , F-score =  0.7186147</code></pre>
+<pre><code>## Accuracy =  0.7451923 , Error rate =  0.2548077 , Precision =  0.754386 , Recall =  0.7747748 , F-score =  0.7644444</code></pre>
 <div id="this-shows-the-improvement-of-the-results-as-10-fold-cross-validation-divide-the-data-into-two-groups-one-for-training-and-the-other-one-for-testing-which-is-repeated-for-10-times" class="section level5">
 <h5>This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times</h5>
 </div>
@@ -210,25 +210,25 @@ randomForest</code></pre>
 ## 
 ## === Summary ===
 ## 
-## Correctly Classified Instances         167               80.2885 %
-## Incorrectly Classified Instances        41               19.7115 %
-## Kappa statistic                          0.5995
-## Mean absolute error                      0.3177
-## Root mean squared error                  0.367 
-## Relative absolute error                 63.8173 %
-## Root relative squared error             73.5487 %
+## Correctly Classified Instances         171               82.2115 %
+## Incorrectly Classified Instances        37               17.7885 %
+## Kappa statistic                          0.64  
+## Mean absolute error                      0.3083
+## Root mean squared error                  0.3551
+## Relative absolute error                 61.934  %
+## Root relative squared error             71.1774 %
 ## Coverage of cases (0.95 level)         100      %
-## Mean rel. region size (0.95 level)      96.875  %
+## Mean rel. region size (0.95 level)      97.3558 %
 ## Total Number of Instances              208     
 ## 
 ## === Confusion Matrix ===
 ## 
 ##   a  b   &lt;-- classified as
-##  99 12 |  a = M
-##  29 68 |  b = R</code></pre>
+##  98 13 |  a = M
+##  24 73 |  b = R</code></pre>
 <pre class="r"><code>rf &lt;- measuresMap(randomForest)
 cat(&quot;Accuracy = &quot;, rf[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, rf[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, rf[[&quot;Precision&quot;]], &quot;, Recall = &quot;, rf[[&quot;Recall&quot;]], &quot;, F-score = &quot;, rf[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Accuracy =  0.8028846 , Error rate =  0.1971154 , Precision =  0.7734375 , Recall =  0.8918919 , F-score =  0.8284519</code></pre>
+<pre><code>## Accuracy =  0.8221154 , Error rate =  0.1778846 , Precision =  0.8032787 , Recall =  0.8828829 , F-score =  0.8412017</code></pre>
 <p>SVM</p>
 <pre class="r"><code>SVM = SMO(V61~., data=sonar) %&gt;% evaluate_Weka_classifier(numFolds = 10)
 SVM</code></pre>
@@ -236,25 +236,25 @@ SVM</code></pre>
 ## 
 ## === Summary ===
 ## 
-## Correctly Classified Instances         159               76.4423 %
-## Incorrectly Classified Instances        49               23.5577 %
-## Kappa statistic                          0.5264
-## Mean absolute error                      0.2356
-## Root mean squared error                  0.4854
-## Relative absolute error                 47.3221 %
-## Root relative squared error             97.2812 %
-## Coverage of cases (0.95 level)          76.4423 %
+## Correctly Classified Instances         162               77.8846 %
+## Incorrectly Classified Instances        46               22.1154 %
+## Kappa statistic                          0.5551
+## Mean absolute error                      0.2212
+## Root mean squared error                  0.4703
+## Relative absolute error                 44.4249 %
+## Root relative squared error             94.2562 %
+## Coverage of cases (0.95 level)          77.8846 %
 ## Mean rel. region size (0.95 level)      50      %
 ## Total Number of Instances              208     
 ## 
 ## === Confusion Matrix ===
 ## 
 ##   a  b   &lt;-- classified as
-##  87 24 |  a = M
-##  25 72 |  b = R</code></pre>
+##  89 22 |  a = M
+##  24 73 |  b = R</code></pre>
 <pre class="r"><code>svm &lt;- measuresMap(SVM)
 cat(&quot;Accuracy = &quot;, svm[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, svm[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, svm[[&quot;Precision&quot;]], &quot;, Recall = &quot;, svm[[&quot;Recall&quot;]], &quot;, F-score = &quot;, svm[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Accuracy =  0.7644231 , Error rate =  0.2355769 , Precision =  0.7767857 , Recall =  0.7837838 , F-score =  0.7802691</code></pre>
+<pre><code>## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7876106 , Recall =  0.8018018 , F-score =  0.7946429</code></pre>
 <p>Naive Bayes</p>
 <pre class="r"><code>NB &lt;- make_Weka_classifier(&quot;weka/classifiers/bayes/NaiveBayes&quot;)
 naiveBayes&lt;- NB(V61~., data=sonar) %&gt;% evaluate_Weka_classifier( numFolds = 10)
@@ -263,25 +263,25 @@ naiveBayes</code></pre>
 ## 
 ## === Summary ===
 ## 
-## Correctly Classified Instances         139               66.8269 %
-## Incorrectly Classified Instances        69               33.1731 %
-## Kappa statistic                          0.3459
-## Mean absolute error                      0.3176
-## Root mean squared error                  0.5382
-## Relative absolute error                 63.8032 %
-## Root relative squared error            107.8794 %
-## Coverage of cases (0.95 level)          77.8846 %
-## Mean rel. region size (0.95 level)      58.4135 %
+## Correctly Classified Instances         144               69.2308 %
+## Incorrectly Classified Instances        64               30.7692 %
+## Kappa statistic                          0.3929
+## Mean absolute error                      0.3163
+## Root mean squared error                  0.5298
+## Relative absolute error                 63.5457 %
+## Root relative squared error            106.1977 %
+## Coverage of cases (0.95 level)          78.3654 %
+## Mean rel. region size (0.95 level)      59.6154 %
 ## Total Number of Instances              208     
 ## 
 ## === Confusion Matrix ===
 ## 
 ##   a  b   &lt;-- classified as
-##  62 49 |  a = M
-##  20 77 |  b = R</code></pre>
+##  65 46 |  a = M
+##  18 79 |  b = R</code></pre>
 <pre class="r"><code>nb &lt;- measuresMap(naiveBayes)
 cat(&quot;Accuracy = &quot;, nb[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, nb[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, nb[[&quot;Precision&quot;]], &quot;, Recall = &quot;, nb[[&quot;Recall&quot;]], &quot;, F-score = &quot;, nb[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Accuracy =  0.6682692 , Error rate =  0.3317308 , Precision =  0.7560976 , Recall =  0.5585586 , F-score =  0.642487</code></pre>
+<pre><code>## Accuracy =  0.6923077 , Error rate =  0.3076923 , Precision =  0.7831325 , Recall =  0.5855856 , F-score =  0.6701031</code></pre>
 <p>Neural Networks</p>
 <pre class="r"><code>#NN &lt;- make_Weka_classifier(&quot;weka/classifiers/functions/MultilayerPerceptron&quot;)
 #neuralNetwork&lt;- NN(V61~., data=sonar) %&gt;% evaluate_Weka_classifier( numFolds = 10)
@@ -295,13 +295,13 @@ BAG</code></pre>
 ## 
 ## === Summary ===
 ## 
-## Correctly Classified Instances         152               73.0769 %
-## Incorrectly Classified Instances        56               26.9231 %
-## Kappa statistic                          0.4577
-## Mean absolute error                      0.3093
-## Root mean squared error                  0.3976
-## Relative absolute error                 62.1287 %
-## Root relative squared error             79.6859 %
+## Correctly Classified Instances         162               77.8846 %
+## Incorrectly Classified Instances        46               22.1154 %
+## Kappa statistic                          0.5522
+## Mean absolute error                      0.2969
+## Root mean squared error                  0.3814
+## Relative absolute error                 59.6445 %
+## Root relative squared error             76.4507 %
 ## Coverage of cases (0.95 level)          99.5192 %
 ## Mean rel. region size (0.95 level)      90.8654 %
 ## Total Number of Instances              208     
@@ -309,11 +309,11 @@ BAG</code></pre>
 ## === Confusion Matrix ===
 ## 
 ##   a  b   &lt;-- classified as
-##  85 26 |  a = M
-##  30 67 |  b = R</code></pre>
+##  94 17 |  a = M
+##  29 68 |  b = R</code></pre>
 <pre class="r"><code>bag &lt;- measuresMap(BAG)
 cat(&quot;Accuracy = &quot;, bag[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, bag[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, bag[[&quot;Precision&quot;]], &quot;, Recall = &quot;, bag[[&quot;Recall&quot;]], &quot;, F-score = &quot;, bag[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Accuracy =  0.7307692 , Error rate =  0.2692308 , Precision =  0.7391304 , Recall =  0.7657658 , F-score =  0.7522124</code></pre>
+<pre><code>## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7642276 , Recall =  0.8468468 , F-score =  0.8034188</code></pre>
 <p>Boosting:</p>
 <pre class="r"><code>BOOST = AdaBoostM1(V61~., data=sonar, control = Weka_control(W = J48)) %&gt;% evaluate_Weka_classifier(numFolds = 10)
 BOOST</code></pre>
@@ -321,34 +321,34 @@ BOOST</code></pre>
 ## 
 ## === Summary ===
 ## 
-## Correctly Classified Instances         173               83.1731 %
-## Incorrectly Classified Instances        35               16.8269 %
-## Kappa statistic                          0.6586
-## Mean absolute error                      0.1816
-## Root mean squared error                  0.4038
-## Relative absolute error                 36.4819 %
-## Root relative squared error             80.9375 %
+## Correctly Classified Instances         167               80.2885 %
+## Incorrectly Classified Instances        41               19.7115 %
+## Kappa statistic                          0.6011
+## Mean absolute error                      0.2031
+## Root mean squared error                  0.4248
+## Relative absolute error                 40.7999 %
+## Root relative squared error             85.1383 %
 ## Coverage of cases (0.95 level)          85.5769 %
-## Mean rel. region size (0.95 level)      55.0481 %
+## Mean rel. region size (0.95 level)      56.25   %
 ## Total Number of Instances              208     
 ## 
 ## === Confusion Matrix ===
 ## 
-##    a   b   &lt;-- classified as
-##  101  10 |   a = M
-##   25  72 |   b = R</code></pre>
+##   a  b   &lt;-- classified as
+##  96 15 |  a = M
+##  26 71 |  b = R</code></pre>
 <pre class="r"><code>boost &lt;- measuresMap(BOOST)
 cat(&quot;Accuracy = &quot;, boost[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, boost[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, boost[[&quot;Precision&quot;]], &quot;, Recall = &quot;, boost[[&quot;Recall&quot;]], &quot;, F-score = &quot;, boost[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Accuracy =  0.8317308 , Error rate =  0.1682692 , Precision =  0.8015873 , Recall =  0.9099099 , F-score =  0.8523207</code></pre>
+<pre><code>## Accuracy =  0.8028846 , Error rate =  0.1971154 , Precision =  0.7868852 , Recall =  0.8648649 , F-score =  0.8240343</code></pre>
 </div>
 <div id="compare-between-bagging-boosting-and-c4.5" class="section level2">
 <h2>3.2 Compare between Bagging, Boosting and C4.5:</h2>
 <pre class="r"><code>cat(&quot;C4.5 measures:&quot;,&quot; Accuracy = &quot;, c4.5_cv[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, c4.5_cv[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, c4.5_cv[[&quot;Precision&quot;]], &quot;, Recall = &quot;, c4.5_cv[[&quot;Recall&quot;]], &quot;, F-score = &quot;, c4.5_cv[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## C4.5 measures:  Accuracy =  0.6875 , Error rate =  0.3125 , Precision =  0.6916667 , Recall =  0.7477477 , F-score =  0.7186147</code></pre>
+<pre><code>## C4.5 measures:  Accuracy =  0.7451923 , Error rate =  0.2548077 , Precision =  0.754386 , Recall =  0.7747748 , F-score =  0.7644444</code></pre>
 <pre class="r"><code>cat(&quot;Bagging measures:&quot;,&quot;Accuracy = &quot;, bag[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, bag[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, bag[[&quot;Precision&quot;]], &quot;, Recall = &quot;, bag[[&quot;Recall&quot;]], &quot;, F-score = &quot;, bag[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Bagging measures: Accuracy =  0.7307692 , Error rate =  0.2692308 , Precision =  0.7391304 , Recall =  0.7657658 , F-score =  0.7522124</code></pre>
+<pre><code>## Bagging measures: Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7642276 , Recall =  0.8468468 , F-score =  0.8034188</code></pre>
 <pre class="r"><code>cat(&quot;Boosting measures:&quot;, &quot; Accuracy = &quot;, boost[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, boost[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, boost[[&quot;Precision&quot;]], &quot;, Recall = &quot;, boost[[&quot;Recall&quot;]], &quot;, F-score = &quot;, boost[[&quot;F-score&quot;]])</code></pre>
-<pre><code>## Boosting measures:  Accuracy =  0.8317308 , Error rate =  0.1682692 , Precision =  0.8015873 , Recall =  0.9099099 , F-score =  0.8523207</code></pre>
+<pre><code>## Boosting measures:  Accuracy =  0.8028846 , Error rate =  0.1971154 , Precision =  0.7868852 , Recall =  0.8648649 , F-score =  0.8240343</code></pre>
 <p>So as expected we can see from the result that all the measures are better in bagging and boosting than in C4.5 classifier.</p>
 </div>
 <div id="loading-new-datasets" class="section level2">
@@ -522,241 +522,241 @@ diabetesClassification &lt;- function(c){
 for(d in c4.5_sonar[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7596154 , Error rate =  0.2403846 , Precision =  0.8019802 , Recall =  0.7297297 , F-score =  0.7641509 
-## Accuracy =  0.7019231 , Error rate =  0.2980769 , Precision =  0.728972 , Recall =  0.7027027 , F-score =  0.7155963 
+<pre><code>## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7706422 , Recall =  0.7567568 , F-score =  0.7636364 
+## Accuracy =  0.7403846 , Error rate =  0.2596154 , Precision =  0.7614679 , Recall =  0.7477477 , F-score =  0.7545455 
+## Accuracy =  0.7115385 , Error rate =  0.2884615 , Precision =  0.7428571 , Recall =  0.7027027 , F-score =  0.7222222 
+## Accuracy =  0.6490385 , Error rate =  0.3509615 , Precision =  0.6792453 , Recall =  0.6486486 , F-score =  0.6635945 
+## Accuracy =  0.7259615 , Error rate =  0.2740385 , Precision =  0.75 , Recall =  0.7297297 , F-score =  0.739726 
+## Accuracy =  0.7211538 , Error rate =  0.2788462 , Precision =  0.7304348 , Recall =  0.7567568 , F-score =  0.7433628 
 ## Accuracy =  0.7211538 , Error rate =  0.2788462 , Precision =  0.752381 , Recall =  0.7117117 , F-score =  0.7314815 
-## Accuracy =  0.7548077 , Error rate =  0.2451923 , Precision =  0.7631579 , Recall =  0.7837838 , F-score =  0.7733333 
-## Accuracy =  0.7355769 , Error rate =  0.2644231 , Precision =  0.78 , Recall =  0.7027027 , F-score =  0.7393365 
-## Accuracy =  0.7019231 , Error rate =  0.2980769 , Precision =  0.7247706 , Recall =  0.7117117 , F-score =  0.7181818 
-## Accuracy =  0.7548077 , Error rate =  0.2451923 , Precision =  0.7830189 , Recall =  0.7477477 , F-score =  0.764977 
-## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.8095238 , Recall =  0.7657658 , F-score =  0.787037 
-## Accuracy =  0.7019231 , Error rate =  0.2980769 , Precision =  0.7168142 , Recall =  0.7297297 , F-score =  0.7232143 
+## Accuracy =  0.7163462 , Error rate =  0.2836538 , Precision =  0.7280702 , Recall =  0.7477477 , F-score =  0.7377778 
+## Accuracy =  0.7163462 , Error rate =  0.2836538 , Precision =  0.7321429 , Recall =  0.7387387 , F-score =  0.735426 
 ## Accuracy =  0.7115385 , Error rate =  0.2884615 , Precision =  0.7297297 , Recall =  0.7297297 , F-score =  0.7297297</code></pre>
 <p>Applying C4.5 on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>c4.5_hepa &lt;- hepaClassification(J48)
 for(d in c4.5_hepa[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019 
-## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019 
-## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019 
+<pre><code>## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.5833333 , Recall =  0.4375 , F-score =  0.5 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.25 , F-score =  0.3333333 
+## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.6086957 , Recall =  0.4375 , F-score =  0.5090909 
+## Accuracy =  0.8451613 , Error rate =  0.1548387 , Precision =  0.6818182 , Recall =  0.46875 , F-score =  0.5555556 
 ## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.6363636 , Recall =  0.4375 , F-score =  0.5185185 
+## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019 
 ## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019 
 ## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.625 , Recall =  0.46875 , F-score =  0.5357143 
-## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6842105 , Recall =  0.40625 , F-score =  0.5098039 
-## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.6086957 , Recall =  0.4375 , F-score =  0.5090909 
-## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.6363636 , Recall =  0.4375 , F-score =  0.5185185 
-## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019</code></pre>
+## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6666667 , Recall =  0.4375 , F-score =  0.5283019 
+## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.6363636 , Recall =  0.4375 , F-score =  0.5185185</code></pre>
 <p>Applying C4.5 on the spect dataset and showing the results of each fold :</p>
 <pre class="r"><code>c4.5_spect &lt;- spectClassification(J48)
 for(d in c4.5_spect[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.5625 , Recall =  0.4909091 , F-score =  0.5242718 
-## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6086957 , Recall =  0.5090909 , F-score =  0.5544554 
-## Accuracy =  0.8052434 , Error rate =  0.1947566 , Precision =  0.5319149 , Recall =  0.4545455 , F-score =  0.4901961 
-## Accuracy =  0.7827715 , Error rate =  0.2172285 , Precision =  0.4727273 , Recall =  0.4727273 , F-score =  0.4727273 
-## Accuracy =  0.8052434 , Error rate =  0.1947566 , Precision =  0.5294118 , Recall =  0.4909091 , F-score =  0.509434 
-## Accuracy =  0.7902622 , Error rate =  0.2097378 , Precision =  0.490566 , Recall =  0.4727273 , F-score =  0.4814815 
-## Accuracy =  0.7977528 , Error rate =  0.2022472 , Precision =  0.5098039 , Recall =  0.4727273 , F-score =  0.490566 
-## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.5652174 , Recall =  0.4727273 , F-score =  0.5148515 
-## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.5652174 , Recall =  0.4727273 , F-score =  0.5148515 
-## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.5833333 , Recall =  0.5090909 , F-score =  0.5436893</code></pre>
+<pre><code>## Accuracy =  0.8089888 , Error rate =  0.1910112 , Precision =  0.5416667 , Recall =  0.4727273 , F-score =  0.5048544 
+## Accuracy =  0.7865169 , Error rate =  0.2134831 , Precision =  0.4827586 , Recall =  0.5090909 , F-score =  0.4955752 
+## Accuracy =  0.7940075 , Error rate =  0.2059925 , Precision =  0.5 , Recall =  0.4545455 , F-score =  0.4761905 
+## Accuracy =  0.7902622 , Error rate =  0.2097378 , Precision =  0.4909091 , Recall =  0.4909091 , F-score =  0.4909091 
+## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5510204 , Recall =  0.4909091 , F-score =  0.5192308 
+## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.58 , Recall =  0.5272727 , F-score =  0.552381 
+## Accuracy =  0.8089888 , Error rate =  0.1910112 , Precision =  0.5384615 , Recall =  0.5090909 , F-score =  0.5233645 
+## Accuracy =  0.8089888 , Error rate =  0.1910112 , Precision =  0.5384615 , Recall =  0.5090909 , F-score =  0.5233645 
+## Accuracy =  0.7865169 , Error rate =  0.2134831 , Precision =  0.4821429 , Recall =  0.4909091 , F-score =  0.4864865 
+## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5510204 , Recall =  0.4909091 , F-score =  0.5192308</code></pre>
 <p>Applying C4.5 on the diabetes dataset and showing the results of each fold :</p>
 <pre class="r"><code>c4.5_diabetes &lt;- diabetesClassification(J48)
 for(d in c4.5_diabetes[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7643229 , Error rate =  0.2356771 , Precision =  0.8109162 , Recall =  0.832 , F-score =  0.8213228 
-## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.8081395 , Recall =  0.834 , F-score =  0.8208661 
-## Accuracy =  0.7304688 , Error rate =  0.2695312 , Precision =  0.7866928 , Recall =  0.804 , F-score =  0.7952522 
-## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.8072289 , Recall =  0.804 , F-score =  0.8056112 
-## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.8035714 , Recall =  0.81 , F-score =  0.8067729 
-## Accuracy =  0.7408854 , Error rate =  0.2591146 , Precision =  0.8003992 , Recall =  0.802 , F-score =  0.8011988 
-## Accuracy =  0.7526042 , Error rate =  0.2473958 , Precision =  0.7902622 , Recall =  0.844 , F-score =  0.8162476 
-## Accuracy =  0.7604167 , Error rate =  0.2395833 , Precision =  0.8098039 , Recall =  0.826 , F-score =  0.8178218 
-## Accuracy =  0.7434896 , Error rate =  0.2565104 , Precision =  0.7842402 , Recall =  0.836 , F-score =  0.8092933 
-## Accuracy =  0.7513021 , Error rate =  0.2486979 , Precision =  0.8 , Recall =  0.824 , F-score =  0.8118227</code></pre>
+<pre><code>## Accuracy =  0.765625 , Error rate =  0.234375 , Precision =  0.8137255 , Recall =  0.83 , F-score =  0.8217822 
+## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.7947269 , Recall =  0.844 , F-score =  0.8186227 
+## Accuracy =  0.7421875 , Error rate =  0.2578125 , Precision =  0.8007968 , Recall =  0.804 , F-score =  0.8023952 
+## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.7984645 , Recall =  0.832 , F-score =  0.8148874 
+## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.7843866 , Recall =  0.844 , F-score =  0.8131021 
+## Accuracy =  0.7408854 , Error rate =  0.2591146 , Precision =  0.7761468 , Recall =  0.846 , F-score =  0.8095694 
+## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.8019417 , Recall =  0.826 , F-score =  0.8137931 
+## Accuracy =  0.7460938 , Error rate =  0.2539062 , Precision =  0.7927063 , Recall =  0.826 , F-score =  0.8090108 
+## Accuracy =  0.7369792 , Error rate =  0.2630208 , Precision =  0.7876448 , Recall =  0.816 , F-score =  0.8015717 
+## Accuracy =  0.7369792 , Error rate =  0.2630208 , Precision =  0.7843511 , Recall =  0.822 , F-score =  0.8027344</code></pre>
 <p>Applying Random Forest on the sonar dataset and showing the results of each fold :</p>
 <pre class="r"><code>rf_sonar &lt;- sonarClassification(RF)
 for(d in rf_sonar[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8173077 , Error rate =  0.1826923 , Precision =  0.7874016 , Recall =  0.9009009 , F-score =  0.8403361 
-## Accuracy =  0.8701923 , Error rate =  0.1298077 , Precision =  0.8333333 , Recall =  0.9459459 , F-score =  0.8860759 
-## Accuracy =  0.8221154 , Error rate =  0.1778846 , Precision =  0.8032787 , Recall =  0.8828829 , F-score =  0.8412017 
-## Accuracy =  0.8269231 , Error rate =  0.1730769 , Precision =  0.8099174 , Recall =  0.8828829 , F-score =  0.8448276 
-## Accuracy =  0.8125 , Error rate =  0.1875 , Precision =  0.7857143 , Recall =  0.8918919 , F-score =  0.835443 
-## Accuracy =  0.8461538 , Error rate =  0.1538462 , Precision =  0.8110236 , Recall =  0.9279279 , F-score =  0.8655462 
-## Accuracy =  0.8269231 , Error rate =  0.1730769 , Precision =  0.804878 , Recall =  0.8918919 , F-score =  0.8461538 
+<pre><code>## Accuracy =  0.8798077 , Error rate =  0.1201923 , Precision =  0.8412698 , Recall =  0.954955 , F-score =  0.8945148 
+## Accuracy =  0.8221154 , Error rate =  0.1778846 , Precision =  0.7983871 , Recall =  0.8918919 , F-score =  0.8425532 
 ## Accuracy =  0.8557692 , Error rate =  0.1442308 , Precision =  0.8292683 , Recall =  0.9189189 , F-score =  0.8717949 
-## Accuracy =  0.8509615 , Error rate =  0.1490385 , Precision =  0.8076923 , Recall =  0.9459459 , F-score =  0.8713693 
-## Accuracy =  0.8509615 , Error rate =  0.1490385 , Precision =  0.8225806 , Recall =  0.9189189 , F-score =  0.8680851</code></pre>
+## Accuracy =  0.8269231 , Error rate =  0.1730769 , Precision =  0.7906977 , Recall =  0.9189189 , F-score =  0.85 
+## Accuracy =  0.8413462 , Error rate =  0.1586538 , Precision =  0.8145161 , Recall =  0.9099099 , F-score =  0.8595745 
+## Accuracy =  0.8317308 , Error rate =  0.1682692 , Precision =  0.8015873 , Recall =  0.9099099 , F-score =  0.8523207 
+## Accuracy =  0.8221154 , Error rate =  0.1778846 , Precision =  0.8032787 , Recall =  0.8828829 , F-score =  0.8412017 
+## Accuracy =  0.8317308 , Error rate =  0.1682692 , Precision =  0.8064516 , Recall =  0.9009009 , F-score =  0.8510638 
+## Accuracy =  0.8605769 , Error rate =  0.1394231 , Precision =  0.8416667 , Recall =  0.9099099 , F-score =  0.8744589 
+## Accuracy =  0.8317308 , Error rate =  0.1682692 , Precision =  0.8064516 , Recall =  0.9009009 , F-score =  0.8510638</code></pre>
 <p>Applying Random Forest on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>rf_hepa &lt;- hepaClassification(RF)
 for(d in rf_hepa[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  1 , Recall =  0.15625 , F-score =  0.2702703 
-## Accuracy =  0.8 , Error rate =  0.2 , Precision =  0.6 , Recall =  0.09375 , F-score =  0.1621622 
-## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.75 , Recall =  0.09375 , F-score =  0.1666667 
-## Accuracy =  0.8 , Error rate =  0.2 , Precision =  0.6666667 , Recall =  0.0625 , F-score =  0.1142857 
-## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  1 , Recall =  0.09375 , F-score =  0.1714286 
-## Accuracy =  0.8 , Error rate =  0.2 , Precision =  0.6666667 , Recall =  0.0625 , F-score =  0.1142857 
+<pre><code>## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  1 , Recall =  0.0625 , F-score =  0.1176471 
 ## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  1 , Recall =  0.0625 , F-score =  0.1176471 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.0625 , F-score =  0.1111111 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.03125 , F-score =  0.05882353 
 ## Accuracy =  0.8 , Error rate =  0.2 , Precision =  0.6666667 , Recall =  0.0625 , F-score =  0.1142857 
 ## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.75 , Recall =  0.09375 , F-score =  0.1666667 
-## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.03125 , F-score =  0.05882353</code></pre>
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.03125 , F-score =  0.05882353 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.09375 , F-score =  0.1578947 
+## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.8 , Recall =  0.125 , F-score =  0.2162162 
+## Accuracy =  0.8 , Error rate =  0.2 , Precision =  0.6666667 , Recall =  0.0625 , F-score =  0.1142857</code></pre>
 <p>Applying Random Forest on the spect dataset and showing the results of each fold :</p>
 <pre class="r"><code>rf_spect &lt;- spectClassification(RF)
 for(d in rf_spect[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.6097561 , Recall =  0.4545455 , F-score =  0.5208333 
-## Accuracy =  0.8501873 , Error rate =  0.1498127 , Precision =  0.6829268 , Recall =  0.5090909 , F-score =  0.5833333 
-## Accuracy =  0.8202247 , Error rate =  0.1797753 , Precision =  0.5777778 , Recall =  0.4727273 , F-score =  0.52 
-## Accuracy =  0.8052434 , Error rate =  0.1947566 , Precision =  0.5333333 , Recall =  0.4363636 , F-score =  0.48 
-## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.5869565 , Recall =  0.4909091 , F-score =  0.5346535 
-## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.6 , Recall =  0.4909091 , F-score =  0.54 
-## Accuracy =  0.8389513 , Error rate =  0.1610487 , Precision =  0.6428571 , Recall =  0.4909091 , F-score =  0.556701 
+<pre><code>## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.58 , Recall =  0.5272727 , F-score =  0.552381 
+## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5581395 , Recall =  0.4363636 , F-score =  0.4897959 
+## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.5652174 , Recall =  0.4727273 , F-score =  0.5148515 
+## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5555556 , Recall =  0.4545455 , F-score =  0.5 
 ## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5531915 , Recall =  0.4727273 , F-score =  0.5098039 
-## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.5957447 , Recall =  0.5090909 , F-score =  0.5490196 
-## Accuracy =  0.8202247 , Error rate =  0.1797753 , Precision =  0.5714286 , Recall =  0.5090909 , F-score =  0.5384615</code></pre>
+## Accuracy =  0.8202247 , Error rate =  0.1797753 , Precision =  0.5744681 , Recall =  0.4909091 , F-score =  0.5294118 
+## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.5625 , Recall =  0.4909091 , F-score =  0.5242718 
+## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6222222 , Recall =  0.5090909 , F-score =  0.56 
+## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6136364 , Recall =  0.4909091 , F-score =  0.5454545 
+## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.5869565 , Recall =  0.4909091 , F-score =  0.5346535</code></pre>
 <p>Applying Random Forest on the diabetes dataset and showing the results of each fold :</p>
 <pre class="r"><code>rf_diabetes &lt;- diabetesClassification(RF)
 for(d in rf_diabetes[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.8 , Recall =  0.832 , F-score =  0.8156863 
-## Accuracy =  0.7682292 , Error rate =  0.2317708 , Precision =  0.8037736 , Recall =  0.852 , F-score =  0.8271845 
-## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.7958412 , Recall =  0.842 , F-score =  0.8182702 
-## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.8045977 , Recall =  0.84 , F-score =  0.8219178 
-## Accuracy =  0.7526042 , Error rate =  0.2473958 , Precision =  0.7958015 , Recall =  0.834 , F-score =  0.8144531 
-## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.7977528 , Recall =  0.852 , F-score =  0.8239845 
-## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.7958412 , Recall =  0.842 , F-score =  0.8182702 
-## Accuracy =  0.765625 , Error rate =  0.234375 , Precision =  0.8065134 , Recall =  0.842 , F-score =  0.8238748 
-## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.793621 , Recall =  0.846 , F-score =  0.8189739 
-## Accuracy =  0.734375 , Error rate =  0.265625 , Precision =  0.780303 , Recall =  0.824 , F-score =  0.8015564</code></pre>
+<pre><code>## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.7966418 , Recall =  0.854 , F-score =  0.8243243 
+## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.8011364 , Recall =  0.846 , F-score =  0.8229572 
+## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.8042226 , Recall =  0.838 , F-score =  0.820764 
+## Accuracy =  0.7486979 , Error rate =  0.2513021 , Precision =  0.793499 , Recall =  0.83 , F-score =  0.8113392 
+## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.7865169 , Recall =  0.84 , F-score =  0.8123791 
+## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.7886792 , Recall =  0.836 , F-score =  0.8116505 
+## Accuracy =  0.7760417 , Error rate =  0.2239583 , Precision =  0.8153846 , Recall =  0.848 , F-score =  0.8313725 
+## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7996183 , Recall =  0.838 , F-score =  0.8183594 
+## Accuracy =  0.7682292 , Error rate =  0.2317708 , Precision =  0.8049242 , Recall =  0.85 , F-score =  0.8268482 
+## Accuracy =  0.7682292 , Error rate =  0.2317708 , Precision =  0.8014981 , Recall =  0.856 , F-score =  0.827853</code></pre>
 <p>Applying SVM on the sonar dataset and showing the results of each fold :</p>
 <pre class="r"><code>svm_sonar &lt;- sonarClassification(SMO)
 for(d in svm_sonar[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7521368 , Recall =  0.7927928 , F-score =  0.7719298 
-## Accuracy =  0.7451923 , Error rate =  0.2548077 , Precision =  0.75 , Recall =  0.7837838 , F-score =  0.7665198 
-## Accuracy =  0.7932692 , Error rate =  0.2067308 , Precision =  0.7833333 , Recall =  0.8468468 , F-score =  0.8138528 
-## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7876106 , Recall =  0.8018018 , F-score =  0.7946429 
-## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7758621 , Recall =  0.8108108 , F-score =  0.7929515 
-## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7826087 , Recall =  0.8108108 , F-score =  0.7964602 
-## Accuracy =  0.7692308 , Error rate =  0.2307692 , Precision =  0.773913 , Recall =  0.8018018 , F-score =  0.7876106 
+<pre><code>## Accuracy =  0.7932692 , Error rate =  0.2067308 , Precision =  0.7982456 , Recall =  0.8198198 , F-score =  0.8088889 
+## Accuracy =  0.7403846 , Error rate =  0.2596154 , Precision =  0.7435897 , Recall =  0.7837838 , F-score =  0.7631579 
+## Accuracy =  0.7692308 , Error rate =  0.2307692 , Precision =  0.7837838 , Recall =  0.7837838 , F-score =  0.7837838 
+## Accuracy =  0.7644231 , Error rate =  0.2355769 , Precision =  0.787037 , Recall =  0.7657658 , F-score =  0.7762557 
+## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7857143 , Recall =  0.7927928 , F-score =  0.7892377 
+## Accuracy =  0.7548077 , Error rate =  0.2451923 , Precision =  0.7631579 , Recall =  0.7837838 , F-score =  0.7733333 
+## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.8037383 , Recall =  0.7747748 , F-score =  0.7889908 
+## Accuracy =  0.7692308 , Error rate =  0.2307692 , Precision =  0.7837838 , Recall =  0.7837838 , F-score =  0.7837838 
 ## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7962963 , Recall =  0.7747748 , F-score =  0.7853881 
-## Accuracy =  0.7884615 , Error rate =  0.2115385 , Precision =  0.7913043 , Recall =  0.8198198 , F-score =  0.8053097 
-## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7731092 , Recall =  0.8288288 , F-score =  0.8</code></pre>
+## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7876106 , Recall =  0.8018018 , F-score =  0.7946429</code></pre>
 <p>Applying SVM on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>svm_hepa &lt;- hepaClassification(SMO)
 for(d in svm_hepa[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.40625 , F-score =  0.4482759 
-## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.5333333 , Recall =  0.5 , F-score =  0.516129 
-## Accuracy =  0.7870968 , Error rate =  0.2129032 , Precision =  0.4827586 , Recall =  0.4375 , F-score =  0.4590164 
-## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5517241 , Recall =  0.5 , F-score =  0.5245902 
-## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5555556 , Recall =  0.46875 , F-score =  0.5084746 
-## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.5666667 , Recall =  0.53125 , F-score =  0.5483871 
-## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.5625 , Recall =  0.5625 , F-score =  0.5625 
-## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.46875 , F-score =  0.483871 
-## Accuracy =  0.7870968 , Error rate =  0.2129032 , Precision =  0.4827586 , Recall =  0.4375 , F-score =  0.4590164 
-## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5428571 , Recall =  0.59375 , F-score =  0.5671642</code></pre>
+<pre><code>## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.53125 , Recall =  0.53125 , F-score =  0.53125 
+## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6206897 , Recall =  0.5625 , F-score =  0.5901639 
+## Accuracy =  0.7806452 , Error rate =  0.2193548 , Precision =  0.46875 , Recall =  0.46875 , F-score =  0.46875 
+## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.53125 , Recall =  0.53125 , F-score =  0.53125 
+## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.6 , Recall =  0.46875 , F-score =  0.5263158 
+## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5454545 , Recall =  0.5625 , F-score =  0.5538462 
+## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.53125 , Recall =  0.53125 , F-score =  0.53125 
+## Accuracy =  0.7806452 , Error rate =  0.2193548 , Precision =  0.4666667 , Recall =  0.4375 , F-score =  0.4516129 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.5 , F-score =  0.5 
+## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.5862069 , Recall =  0.53125 , F-score =  0.557377</code></pre>
 <p>Applying SVM on the spect dataset and showing the results of each fold :</p>
 <pre class="r"><code>svm_spect &lt;- spectClassification(SMO)
 for(d in svm_spect[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.5869565 , Recall =  0.4909091 , F-score =  0.5346535 
-## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.5714286 , Recall =  0.5818182 , F-score =  0.5765766 
-## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.6 , Recall =  0.4909091 , F-score =  0.54 
-## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5490196 , Recall =  0.5090909 , F-score =  0.5283019 
+<pre><code>## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6041667 , Recall =  0.5272727 , F-score =  0.5631068 
 ## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6041667 , Recall =  0.5272727 , F-score =  0.5631068 
-## Accuracy =  0.8389513 , Error rate =  0.1610487 , Precision =  0.6304348 , Recall =  0.5272727 , F-score =  0.5742574 
-## Accuracy =  0.8539326 , Error rate =  0.1460674 , Precision =  0.673913 , Recall =  0.5636364 , F-score =  0.6138614 
-## Accuracy =  0.8389513 , Error rate =  0.1610487 , Precision =  0.62 , Recall =  0.5636364 , F-score =  0.5904762 
-## Accuracy =  0.8202247 , Error rate =  0.1797753 , Precision =  0.5714286 , Recall =  0.5090909 , F-score =  0.5384615 
-## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6078431 , Recall =  0.5636364 , F-score =  0.5849057</code></pre>
+## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.5918367 , Recall =  0.5272727 , F-score =  0.5576923 
+## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.5833333 , Recall =  0.5090909 , F-score =  0.5436893 
+## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6170213 , Recall =  0.5272727 , F-score =  0.5686275 
+## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6041667 , Recall =  0.5272727 , F-score =  0.5631068 
+## Accuracy =  0.8089888 , Error rate =  0.1910112 , Precision =  0.537037 , Recall =  0.5272727 , F-score =  0.5321101 
+## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.6046512 , Recall =  0.4727273 , F-score =  0.5306122 
+## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5490196 , Recall =  0.5090909 , F-score =  0.5283019 
+## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6 , Recall =  0.5454545 , F-score =  0.5714286</code></pre>
 <p>Applying SVM on the diabetes dataset and showing the results of each fold :</p>
 <pre class="r"><code>svm_diabetes &lt;- diabetesClassification(NB)
 for(d in svm_diabetes[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.7984934 , Recall =  0.848 , F-score =  0.8225024 
-## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7977099 , Recall =  0.836 , F-score =  0.8164062 
-## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.7928437 , Recall =  0.842 , F-score =  0.8166828 
-## Accuracy =  0.7604167 , Error rate =  0.2395833 , Precision =  0.7992424 , Recall =  0.844 , F-score =  0.8210117 
-## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7954545 , Recall =  0.84 , F-score =  0.8171206 
-## Accuracy =  0.7604167 , Error rate =  0.2395833 , Precision =  0.7992424 , Recall =  0.844 , F-score =  0.8210117 
-## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.8019048 , Recall =  0.842 , F-score =  0.8214634 
-## Accuracy =  0.765625 , Error rate =  0.234375 , Precision =  0.8007519 , Recall =  0.852 , F-score =  0.8255814 
-## Accuracy =  0.7526042 , Error rate =  0.2473958 , Precision =  0.7958015 , Recall =  0.834 , F-score =  0.8144531 
-## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.8030593 , Recall =  0.84 , F-score =  0.8211144</code></pre>
+<pre><code>## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7988506 , Recall =  0.834 , F-score =  0.816047 
+## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7988506 , Recall =  0.834 , F-score =  0.816047 
+## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.8 , Recall =  0.832 , F-score =  0.8156863 
+## Accuracy =  0.7591146 , Error rate =  0.2408854 , Precision =  0.7988615 , Recall =  0.842 , F-score =  0.8198637 
+## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.7961905 , Recall =  0.836 , F-score =  0.8156098 
+## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.7969639 , Recall =  0.84 , F-score =  0.8179163 
+## Accuracy =  0.7486979 , Error rate =  0.2513021 , Precision =  0.792381 , Recall =  0.832 , F-score =  0.8117073 
+## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.800759 , Recall =  0.844 , F-score =  0.8218111 
+## Accuracy =  0.7526042 , Error rate =  0.2473958 , Precision =  0.7946768 , Recall =  0.836 , F-score =  0.8148148 
+## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7984791 , Recall =  0.84 , F-score =  0.8187135</code></pre>
 <p>Applying Naive Bayes on the sonar dataset and showing the results of each fold :</p>
 <pre class="r"><code>nb_sonar &lt;- sonarClassification(NB)
 for(d in nb_sonar[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.6826923 , Error rate =  0.3173077 , Precision =  0.7848101 , Recall =  0.5585586 , F-score =  0.6526316 
-## Accuracy =  0.6875 , Error rate =  0.3125 , Precision =  0.7948718 , Recall =  0.5585586 , F-score =  0.6560847 
+<pre><code>## Accuracy =  0.6634615 , Error rate =  0.3365385 , Precision =  0.746988 , Recall =  0.5585586 , F-score =  0.6391753 
+## Accuracy =  0.6826923 , Error rate =  0.3173077 , Precision =  0.7848101 , Recall =  0.5585586 , F-score =  0.6526316 
+## Accuracy =  0.6971154 , Error rate =  0.3028846 , Precision =  0.7926829 , Recall =  0.5855856 , F-score =  0.6735751 
 ## Accuracy =  0.6778846 , Error rate =  0.3221154 , Precision =  0.7682927 , Recall =  0.5675676 , F-score =  0.6528497 
-## Accuracy =  0.6682692 , Error rate =  0.3317308 , Precision =  0.7560976 , Recall =  0.5585586 , F-score =  0.642487 
-## Accuracy =  0.6923077 , Error rate =  0.3076923 , Precision =  0.7831325 , Recall =  0.5855856 , F-score =  0.6701031 
-## Accuracy =  0.6971154 , Error rate =  0.3028846 , Precision =  0.7857143 , Recall =  0.5945946 , F-score =  0.6769231 
-## Accuracy =  0.6778846 , Error rate =  0.3221154 , Precision =  0.775 , Recall =  0.5585586 , F-score =  0.6492147 
-## Accuracy =  0.6923077 , Error rate =  0.3076923 , Precision =  0.7901235 , Recall =  0.5765766 , F-score =  0.6666667 
-## Accuracy =  0.6730769 , Error rate =  0.3269231 , Precision =  0.7654321 , Recall =  0.5585586 , F-score =  0.6458333 
-## Accuracy =  0.6730769 , Error rate =  0.3269231 , Precision =  0.7721519 , Recall =  0.5495495 , F-score =  0.6421053</code></pre>
+## Accuracy =  0.6730769 , Error rate =  0.3269231 , Precision =  0.7590361 , Recall =  0.5675676 , F-score =  0.6494845 
+## Accuracy =  0.6826923 , Error rate =  0.3173077 , Precision =  0.7710843 , Recall =  0.5765766 , F-score =  0.6597938 
+## Accuracy =  0.6778846 , Error rate =  0.3221154 , Precision =  0.7682927 , Recall =  0.5675676 , F-score =  0.6528497 
+## Accuracy =  0.6875 , Error rate =  0.3125 , Precision =  0.7674419 , Recall =  0.5945946 , F-score =  0.6700508 
+## Accuracy =  0.6682692 , Error rate =  0.3317308 , Precision =  0.75 , Recall =  0.5675676 , F-score =  0.6461538 
+## Accuracy =  0.6682692 , Error rate =  0.3317308 , Precision =  0.75 , Recall =  0.5675676 , F-score =  0.6461538</code></pre>
 <p>Applying Naive Bayes on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>nb_hepa &lt;- hepaClassification(NB)
 for(d in nb_hepa[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.5609756 , Recall =  0.71875 , F-score =  0.630137 
+<pre><code>## Accuracy =  0.8451613 , Error rate =  0.1548387 , Precision =  0.6 , Recall =  0.75 , F-score =  0.6666667 
 ## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.575 , Recall =  0.71875 , F-score =  0.6388889 
-## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.5609756 , Recall =  0.71875 , F-score =  0.630137 
-## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.5853659 , Recall =  0.75 , F-score =  0.6575342 
-## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.5714286 , Recall =  0.75 , F-score =  0.6486486 
+## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5384615 , Recall =  0.65625 , F-score =  0.5915493 
+## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.55 , Recall =  0.6875 , F-score =  0.6111111 
+## Accuracy =  0.8451613 , Error rate =  0.1548387 , Precision =  0.5952381 , Recall =  0.78125 , F-score =  0.6756757 
+## Accuracy =  0.8516129 , Error rate =  0.1483871 , Precision =  0.6153846 , Recall =  0.75 , F-score =  0.6760563 
+## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.55 , Recall =  0.6875 , F-score =  0.6111111 
+## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.547619 , Recall =  0.71875 , F-score =  0.6216216 
 ## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.5675676 , Recall =  0.65625 , F-score =  0.6086957 
-## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5365854 , Recall =  0.6875 , F-score =  0.6027397 
-## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.5609756 , Recall =  0.71875 , F-score =  0.630137 
-## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.5609756 , Recall =  0.71875 , F-score =  0.630137 
-## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.55 , Recall =  0.6875 , F-score =  0.6111111</code></pre>
+## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5384615 , Recall =  0.65625 , F-score =  0.5915493</code></pre>
 <p>Applying Naive Bayes on the spect dataset and showing the results of each fold :</p>
 <pre class="r"><code>nb_spect &lt;- spectClassification(NB)
 for(d in nb_spect[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7602996 , Error rate =  0.2397004 , Precision =  0.4516129 , Recall =  0.7636364 , F-score =  0.5675676 
+<pre><code>## Accuracy =  0.7640449 , Error rate =  0.2359551 , Precision =  0.4565217 , Recall =  0.7636364 , F-score =  0.5714286 
+## Accuracy =  0.7640449 , Error rate =  0.2359551 , Precision =  0.4565217 , Recall =  0.7636364 , F-score =  0.5714286 
+## Accuracy =  0.7565543 , Error rate =  0.2434457 , Precision =  0.4456522 , Recall =  0.7454545 , F-score =  0.5578231 
+## Accuracy =  0.7715356 , Error rate =  0.2284644 , Precision =  0.4666667 , Recall =  0.7636364 , F-score =  0.5793103 
+## Accuracy =  0.752809 , Error rate =  0.247191 , Precision =  0.4421053 , Recall =  0.7636364 , F-score =  0.56 
+## Accuracy =  0.7640449 , Error rate =  0.2359551 , Precision =  0.4565217 , Recall =  0.7636364 , F-score =  0.5714286 
+## Accuracy =  0.7602996 , Error rate =  0.2397004 , Precision =  0.4516129 , Recall =  0.7636364 , F-score =  0.5675676 
 ## Accuracy =  0.7640449 , Error rate =  0.2359551 , Precision =  0.4565217 , Recall =  0.7636364 , F-score =  0.5714286 
 ## Accuracy =  0.752809 , Error rate =  0.247191 , Precision =  0.4421053 , Recall =  0.7636364 , F-score =  0.56 
-## Accuracy =  0.7602996 , Error rate =  0.2397004 , Precision =  0.4505495 , Recall =  0.7454545 , F-score =  0.5616438 
-## Accuracy =  0.7677903 , Error rate =  0.2322097 , Precision =  0.4615385 , Recall =  0.7636364 , F-score =  0.5753425 
-## Accuracy =  0.7602996 , Error rate =  0.2397004 , Precision =  0.4505495 , Recall =  0.7454545 , F-score =  0.5616438 
-## Accuracy =  0.7640449 , Error rate =  0.2359551 , Precision =  0.4555556 , Recall =  0.7454545 , F-score =  0.5655172 
-## Accuracy =  0.7602996 , Error rate =  0.2397004 , Precision =  0.4516129 , Recall =  0.7636364 , F-score =  0.5675676 
-## Accuracy =  0.7677903 , Error rate =  0.2322097 , Precision =  0.4606742 , Recall =  0.7454545 , F-score =  0.5694444 
-## Accuracy =  0.7640449 , Error rate =  0.2359551 , Precision =  0.4574468 , Recall =  0.7818182 , F-score =  0.5771812</code></pre>
+## Accuracy =  0.7677903 , Error rate =  0.2322097 , Precision =  0.4615385 , Recall =  0.7636364 , F-score =  0.5753425</code></pre>
 <p>Applying Naive Bayes on the diabetes dataset and showing the results of each fold :</p>
 <pre class="r"><code>nb_diabetes &lt;- diabetesClassification(NB)
 for(d in nb_diabetes[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.7950664 , Recall =  0.838 , F-score =  0.8159688 
+<pre><code>## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7954545 , Recall =  0.84 , F-score =  0.8171206 
+## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.8045977 , Recall =  0.84 , F-score =  0.8219178 
 ## Accuracy =  0.7591146 , Error rate =  0.2408854 , Precision =  0.7988615 , Recall =  0.842 , F-score =  0.8198637 
-## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7984791 , Recall =  0.84 , F-score =  0.8187135 
+## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.7980952 , Recall =  0.838 , F-score =  0.817561 
+## Accuracy =  0.7591146 , Error rate =  0.2408854 , Precision =  0.8 , Recall =  0.84 , F-score =  0.8195122 
 ## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7973485 , Recall =  0.842 , F-score =  0.8190661 
-## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7984791 , Recall =  0.84 , F-score =  0.8187135 
-## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.8019048 , Recall =  0.842 , F-score =  0.8214634 
-## Accuracy =  0.7591146 , Error rate =  0.2408854 , Precision =  0.7966102 , Recall =  0.846 , F-score =  0.8205626 
-## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.7984645 , Recall =  0.832 , F-score =  0.8148874 
-## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7973485 , Recall =  0.842 , F-score =  0.8190661 
-## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7927757 , Recall =  0.834 , F-score =  0.8128655</code></pre>
+## Accuracy =  0.7526042 , Error rate =  0.2473958 , Precision =  0.7935606 , Recall =  0.838 , F-score =  0.8151751 
+## Accuracy =  0.7526042 , Error rate =  0.2473958 , Precision =  0.7946768 , Recall =  0.836 , F-score =  0.8148148 
+## Accuracy =  0.7630208 , Error rate =  0.2369792 , Precision =  0.8022814 , Recall =  0.844 , F-score =  0.8226121 
+## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7977099 , Recall =  0.836 , F-score =  0.8164062</code></pre>
 <p>Applying Neural Networks on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>#nn_hepa &lt;- hepaClassification(NN)
 #for(d in nn_hepa[[&quot;list_of_10_folds&quot;]]){
@@ -777,121 +777,121 @@ for(d in nb_diabetes[[&quot;list_of_10_folds&quot;]]){
 for(d in bag_sonar[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7807018 , Recall =  0.8018018 , F-score =  0.7911111 
+<pre><code>## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7438017 , Recall =  0.8108108 , F-score =  0.7758621 
 ## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7826087 , Recall =  0.8108108 , F-score =  0.7964602 
-## Accuracy =  0.7692308 , Error rate =  0.2307692 , Precision =  0.752 , Recall =  0.8468468 , F-score =  0.7966102 
-## Accuracy =  0.7548077 , Error rate =  0.2451923 , Precision =  0.75 , Recall =  0.8108108 , F-score =  0.7792208 
-## Accuracy =  0.8028846 , Error rate =  0.1971154 , Precision =  0.7916667 , Recall =  0.8558559 , F-score =  0.8225108 
-## Accuracy =  0.7692308 , Error rate =  0.2307692 , Precision =  0.7603306 , Recall =  0.8288288 , F-score =  0.7931034 
-## Accuracy =  0.7884615 , Error rate =  0.2115385 , Precision =  0.7723577 , Recall =  0.8558559 , F-score =  0.8119658 
-## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7731092 , Recall =  0.8288288 , F-score =  0.8 
-## Accuracy =  0.7836538 , Error rate =  0.2163462 , Precision =  0.7946429 , Recall =  0.8018018 , F-score =  0.7982063 
-## Accuracy =  0.7884615 , Error rate =  0.2115385 , Precision =  0.7723577 , Recall =  0.8558559 , F-score =  0.8119658</code></pre>
+## Accuracy =  0.8076923 , Error rate =  0.1923077 , Precision =  0.8034188 , Recall =  0.8468468 , F-score =  0.8245614 
+## Accuracy =  0.7836538 , Error rate =  0.2163462 , Precision =  0.7844828 , Recall =  0.8198198 , F-score =  0.8017621 
+## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7758621 , Recall =  0.8108108 , F-score =  0.7929515 
+## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7666667 , Recall =  0.8288288 , F-score =  0.7965368 
+## Accuracy =  0.7451923 , Error rate =  0.2548077 , Precision =  0.7265625 , Recall =  0.8378378 , F-score =  0.7782427 
+## Accuracy =  0.7884615 , Error rate =  0.2115385 , Precision =  0.8073394 , Recall =  0.7927928 , F-score =  0.8 
+## Accuracy =  0.7355769 , Error rate =  0.2644231 , Precision =  0.7121212 , Recall =  0.8468468 , F-score =  0.7736626 
+## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7539683 , Recall =  0.8558559 , F-score =  0.8016878</code></pre>
 <p>Applying Bagging on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>bag_hepa &lt;- hepaClassification(Bagging)
 for(d in bag_hepa[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7741935 , Error rate =  0.2258065 , Precision =  0.2857143 , Recall =  0.0625 , F-score =  0.1025641 
-## Accuracy =  0.7806452 , Error rate =  0.2193548 , Precision =  0.375 , Recall =  0.09375 , F-score =  0.15 
-## Accuracy =  0.7870968 , Error rate =  0.2129032 , Precision =  0.4 , Recall =  0.0625 , F-score =  0.1081081 
+<pre><code>## Accuracy =  0.7741935 , Error rate =  0.2258065 , Precision =  0.3333333 , Recall =  0.09375 , F-score =  0.1463415 
+## Accuracy =  0.7677419 , Error rate =  0.2322581 , Precision =  0.3 , Recall =  0.09375 , F-score =  0.1428571 
 ## Accuracy =  0.7548387 , Error rate =  0.2451613 , Precision =  0.2 , Recall =  0.0625 , F-score =  0.0952381 
-## Accuracy =  0.7483871 , Error rate =  0.2516129 , Precision =  0 , Recall =  0 , F-score =  NaN 
-## Accuracy =  0.7612903 , Error rate =  0.2387097 , Precision =  0 , Recall =  0 , F-score =  NaN 
-## Accuracy =  0.7677419 , Error rate =  0.2322581 , Precision =  0.25 , Recall =  0.0625 , F-score =  0.1 
-## Accuracy =  0.7741935 , Error rate =  0.2258065 , Precision =  0.3333333 , Recall =  0.09375 , F-score =  0.1463415 
-## Accuracy =  0.7806452 , Error rate =  0.2193548 , Precision =  0.25 , Recall =  0.03125 , F-score =  0.05555556 
-## Accuracy =  0.7677419 , Error rate =  0.2322581 , Precision =  0.1666667 , Recall =  0.03125 , F-score =  0.05263158</code></pre>
+## Accuracy =  0.7677419 , Error rate =  0.2322581 , Precision =  0.3 , Recall =  0.09375 , F-score =  0.1428571 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.0625 , F-score =  0.1111111 
+## Accuracy =  0.7806452 , Error rate =  0.2193548 , Precision =  0.3333333 , Recall =  0.0625 , F-score =  0.1052632 
+## Accuracy =  0.7612903 , Error rate =  0.2387097 , Precision =  0.2727273 , Recall =  0.09375 , F-score =  0.1395349 
+## Accuracy =  0.7741935 , Error rate =  0.2258065 , Precision =  0.2857143 , Recall =  0.0625 , F-score =  0.1025641 
+## Accuracy =  0.7806452 , Error rate =  0.2193548 , Precision =  0.375 , Recall =  0.09375 , F-score =  0.15 
+## Accuracy =  0.7483871 , Error rate =  0.2516129 , Precision =  0.1111111 , Recall =  0.03125 , F-score =  0.04878049</code></pre>
 <p>Applying Bagging on the spect dataset and showing the results of each fold :</p>
 <pre class="r"><code>bag_spect &lt;- spectClassification(Bagging)
 for(d in bag_spect[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8089888 , Error rate =  0.1910112 , Precision =  0.5526316 , Recall =  0.3818182 , F-score =  0.4516129 
-## Accuracy =  0.8426966 , Error rate =  0.1573034 , Precision =  0.6756757 , Recall =  0.4545455 , F-score =  0.5434783 
-## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6774194 , Recall =  0.3818182 , F-score =  0.4883721 
-## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.575 , Recall =  0.4181818 , F-score =  0.4842105 
-## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.6216216 , Recall =  0.4181818 , F-score =  0.5 
-## Accuracy =  0.8277154 , Error rate =  0.1722846 , Precision =  0.6153846 , Recall =  0.4363636 , F-score =  0.5106383 
+<pre><code>## Accuracy =  0.8426966 , Error rate =  0.1573034 , Precision =  0.6666667 , Recall =  0.4727273 , F-score =  0.5531915 
 ## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6486486 , Recall =  0.4363636 , F-score =  0.5217391 
-## Accuracy =  0.8389513 , Error rate =  0.1610487 , Precision =  0.6764706 , Recall =  0.4181818 , F-score =  0.5168539 
-## Accuracy =  0.8164794 , Error rate =  0.1835206 , Precision =  0.5882353 , Recall =  0.3636364 , F-score =  0.4494382 
-## Accuracy =  0.8389513 , Error rate =  0.1610487 , Precision =  0.6578947 , Recall =  0.4545455 , F-score =  0.5376344</code></pre>
+## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6315789 , Recall =  0.4363636 , F-score =  0.516129 
+## Accuracy =  0.82397 , Error rate =  0.17603 , Precision =  0.6111111 , Recall =  0.4 , F-score =  0.4835165 
+## Accuracy =  0.8127341 , Error rate =  0.1872659 , Precision =  0.5806452 , Recall =  0.3272727 , F-score =  0.4186047 
+## Accuracy =  0.8202247 , Error rate =  0.1797753 , Precision =  0.5945946 , Recall =  0.4 , F-score =  0.4782609 
+## Accuracy =  0.8052434 , Error rate =  0.1947566 , Precision =  0.5517241 , Recall =  0.2909091 , F-score =  0.3809524 
+## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6486486 , Recall =  0.4363636 , F-score =  0.5217391 
+## Accuracy =  0.835206 , Error rate =  0.164794 , Precision =  0.6774194 , Recall =  0.3818182 , F-score =  0.4883721 
+## Accuracy =  0.8314607 , Error rate =  0.1685393 , Precision =  0.6315789 , Recall =  0.4363636 , F-score =  0.516129</code></pre>
 <p>Applying Bagging on the diabetes dataset and showing the results of each fold :</p>
 <pre class="r"><code>bag_diabetes &lt;- diabetesClassification(Bagging)
 for(d in bag_diabetes[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7643229 , Error rate =  0.2356771 , Precision =  0.8049713 , Recall =  0.842 , F-score =  0.8230694 
-## Accuracy =  0.7851562 , Error rate =  0.2148438 , Precision =  0.8202677 , Recall =  0.858 , F-score =  0.8387097 
-## Accuracy =  0.7434896 , Error rate =  0.2565104 , Precision =  0.7831776 , Recall =  0.838 , F-score =  0.8096618 
-## Accuracy =  0.7565104 , Error rate =  0.2434896 , Precision =  0.7958412 , Recall =  0.842 , F-score =  0.8182702 
-## Accuracy =  0.7721354 , Error rate =  0.2278646 , Precision =  0.8095238 , Recall =  0.85 , F-score =  0.8292683 
-## Accuracy =  0.7604167 , Error rate =  0.2395833 , Precision =  0.7947761 , Recall =  0.852 , F-score =  0.8223938 
-## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7965779 , Recall =  0.838 , F-score =  0.8167641 
-## Accuracy =  0.7382812 , Error rate =  0.2617188 , Precision =  0.7826087 , Recall =  0.828 , F-score =  0.8046647 
-## Accuracy =  0.7539062 , Error rate =  0.2460938 , Precision =  0.7928437 , Recall =  0.842 , F-score =  0.8166828 
-## Accuracy =  0.7604167 , Error rate =  0.2395833 , Precision =  0.7958801 , Recall =  0.85 , F-score =  0.8220503</code></pre>
+<pre><code>## Accuracy =  0.7617188 , Error rate =  0.2382812 , Precision =  0.7996219 , Recall =  0.846 , F-score =  0.8221574 
+## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.7865169 , Recall =  0.84 , F-score =  0.8123791 
+## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7940075 , Recall =  0.848 , F-score =  0.8201161 
+## Accuracy =  0.7552083 , Error rate =  0.2447917 , Precision =  0.7899628 , Recall =  0.85 , F-score =  0.8188825 
+## Accuracy =  0.7708333 , Error rate =  0.2291667 , Precision =  0.8091603 , Recall =  0.848 , F-score =  0.828125 
+## Accuracy =  0.7486979 , Error rate =  0.2513021 , Precision =  0.7816514 , Recall =  0.852 , F-score =  0.815311 
+## Accuracy =  0.7643229 , Error rate =  0.2356771 , Precision =  0.7981308 , Recall =  0.854 , F-score =  0.8251208 
+## Accuracy =  0.7695312 , Error rate =  0.2304688 , Precision =  0.8087954 , Recall =  0.846 , F-score =  0.8269795 
+## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7894737 , Recall =  0.84 , F-score =  0.8139535 
+## Accuracy =  0.7486979 , Error rate =  0.2513021 , Precision =  0.7890772 , Recall =  0.838 , F-score =  0.8128031</code></pre>
 <p>Applying Boosting on the sonar dataset and showing the results of each fold :</p>
 <pre class="r"><code>boost_sonar &lt;- sonarClassification(AdaBoostM1)
 for(d in boost_sonar[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7692308 , Error rate =  0.2307692 , Precision =  0.7889908 , Recall =  0.7747748 , F-score =  0.7818182 
-## Accuracy =  0.7355769 , Error rate =  0.2644231 , Precision =  0.745614 , Recall =  0.7657658 , F-score =  0.7555556 
-## Accuracy =  0.7788462 , Error rate =  0.2211538 , Precision =  0.7777778 , Recall =  0.8198198 , F-score =  0.7982456 
-## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7857143 , Recall =  0.7927928 , F-score =  0.7892377 
-## Accuracy =  0.7355769 , Error rate =  0.2644231 , Precision =  0.75 , Recall =  0.7567568 , F-score =  0.7533632 
-## Accuracy =  0.7836538 , Error rate =  0.2163462 , Precision =  0.8055556 , Recall =  0.7837838 , F-score =  0.7945205 
-## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7565217 , Recall =  0.7837838 , F-score =  0.7699115 
-## Accuracy =  0.7355769 , Error rate =  0.2644231 , Precision =  0.7413793 , Recall =  0.7747748 , F-score =  0.7577093 
-## Accuracy =  0.7836538 , Error rate =  0.2163462 , Precision =  0.7946429 , Recall =  0.8018018 , F-score =  0.7982063 
-## Accuracy =  0.7259615 , Error rate =  0.2740385 , Precision =  0.7410714 , Recall =  0.7477477 , F-score =  0.7443946</code></pre>
+<pre><code>## Accuracy =  0.7596154 , Error rate =  0.2403846 , Precision =  0.7479675 , Recall =  0.8288288 , F-score =  0.7863248 
+## Accuracy =  0.7548077 , Error rate =  0.2451923 , Precision =  0.7542373 , Recall =  0.8018018 , F-score =  0.7772926 
+## Accuracy =  0.7644231 , Error rate =  0.2355769 , Precision =  0.7672414 , Recall =  0.8018018 , F-score =  0.784141 
+## Accuracy =  0.7403846 , Error rate =  0.2596154 , Precision =  0.7355372 , Recall =  0.8018018 , F-score =  0.7672414 
+## Accuracy =  0.7163462 , Error rate =  0.2836538 , Precision =  0.7407407 , Recall =  0.7207207 , F-score =  0.7305936 
+## Accuracy =  0.7259615 , Error rate =  0.2740385 , Precision =  0.7368421 , Recall =  0.7567568 , F-score =  0.7466667 
+## Accuracy =  0.7596154 , Error rate =  0.2403846 , Precision =  0.7563025 , Recall =  0.8108108 , F-score =  0.7826087 
+## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7478992 , Recall =  0.8018018 , F-score =  0.773913 
+## Accuracy =  0.7259615 , Error rate =  0.2740385 , Precision =  0.7454545 , Recall =  0.7387387 , F-score =  0.7420814 
+## Accuracy =  0.7740385 , Error rate =  0.2259615 , Precision =  0.7857143 , Recall =  0.7927928 , F-score =  0.7892377</code></pre>
 <p>Applying Boosting on the hapatitis dataset and showing the results of each fold :</p>
 <pre class="r"><code>boost_hepa &lt;- hepaClassification(AdaBoostM1)
 for(d in boost_hepa[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
 <pre><code>## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.55 , Recall =  0.34375 , F-score =  0.4230769 
-## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.6086957 , Recall =  0.4375 , F-score =  0.5090909 
-## Accuracy =  0.8 , Error rate =  0.2 , Precision =  0.5217391 , Recall =  0.375 , F-score =  0.4363636 
-## Accuracy =  0.8451613 , Error rate =  0.1548387 , Precision =  0.7222222 , Recall =  0.40625 , F-score =  0.52 
-## Accuracy =  0.7741935 , Error rate =  0.2258065 , Precision =  0.44 , Recall =  0.34375 , F-score =  0.3859649 
-## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5652174 , Recall =  0.40625 , F-score =  0.4727273 
-## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.625 , Recall =  0.3125 , F-score =  0.4166667 
-## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.40625 , F-score =  0.4482759 
-## Accuracy =  0.8387097 , Error rate =  0.1612903 , Precision =  0.6842105 , Recall =  0.40625 , F-score =  0.5098039 
+## Accuracy =  0.8322581 , Error rate =  0.1677419 , Precision =  0.6666667 , Recall =  0.375 , F-score =  0.48 
+## Accuracy =  0.7935484 , Error rate =  0.2064516 , Precision =  0.5 , Recall =  0.3125 , F-score =  0.3846154 
+## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.5454545 , Recall =  0.375 , F-score =  0.4444444 
+## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.55 , Recall =  0.34375 , F-score =  0.4230769 
+## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5714286 , Recall =  0.375 , F-score =  0.4528302 
+## Accuracy =  0.8193548 , Error rate =  0.1806452 , Precision =  0.6 , Recall =  0.375 , F-score =  0.4615385 
+## Accuracy =  0.8064516 , Error rate =  0.1935484 , Precision =  0.55 , Recall =  0.34375 , F-score =  0.4230769 
+## Accuracy =  0.8129032 , Error rate =  0.1870968 , Precision =  0.5789474 , Recall =  0.34375 , F-score =  0.4313725 
 ## Accuracy =  0.8258065 , Error rate =  0.1741935 , Precision =  0.6190476 , Recall =  0.40625 , F-score =  0.490566</code></pre>
 <p>Applying Boosting on the spect dataset and showing the results of each fold :</p>
 <pre class="r"><code>boost_spect &lt;- spectClassification(AdaBoostM1)
 for(d in boost_spect[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.8052434 , Error rate =  0.1947566 , Precision =  0.5555556 , Recall =  0.2727273 , F-score =  0.3658537 
-## Accuracy =  0.7902622 , Error rate =  0.2097378 , Precision =  0.4857143 , Recall =  0.3090909 , F-score =  0.3777778 
-## Accuracy =  0.7865169 , Error rate =  0.2134831 , Precision =  0.4666667 , Recall =  0.2545455 , F-score =  0.3294118 
-## Accuracy =  0.7940075 , Error rate =  0.2059925 , Precision =  0.5 , Recall =  0.2727273 , F-score =  0.3529412 
-## Accuracy =  0.7865169 , Error rate =  0.2134831 , Precision =  0.4772727 , Recall =  0.3818182 , F-score =  0.4242424 
-## Accuracy =  0.7827715 , Error rate =  0.2172285 , Precision =  0.4693878 , Recall =  0.4181818 , F-score =  0.4423077 
-## Accuracy =  0.7715356 , Error rate =  0.2284644 , Precision =  0.44 , Recall =  0.4 , F-score =  0.4190476 
-## Accuracy =  0.7902622 , Error rate =  0.2097378 , Precision =  0.4666667 , Recall =  0.1272727 , F-score =  0.2 
-## Accuracy =  0.7865169 , Error rate =  0.2134831 , Precision =  0.4666667 , Recall =  0.2545455 , F-score =  0.3294118 
-## Accuracy =  0.7977528 , Error rate =  0.2022472 , Precision =  0.5185185 , Recall =  0.2545455 , F-score =  0.3414634</code></pre>
+<pre><code>## Accuracy =  0.8014981 , Error rate =  0.1985019 , Precision =  0.5357143 , Recall =  0.2727273 , F-score =  0.3614458 
+## Accuracy =  0.7902622 , Error rate =  0.2097378 , Precision =  0.4883721 , Recall =  0.3818182 , F-score =  0.4285714 
+## Accuracy =  0.7827715 , Error rate =  0.2172285 , Precision =  0.4705882 , Recall =  0.4363636 , F-score =  0.4528302 
+## Accuracy =  0.8014981 , Error rate =  0.1985019 , Precision =  0.53125 , Recall =  0.3090909 , F-score =  0.3908046 
+## Accuracy =  0.741573 , Error rate =  0.258427 , Precision =  0.3653846 , Recall =  0.3454545 , F-score =  0.3551402 
+## Accuracy =  0.8014981 , Error rate =  0.1985019 , Precision =  0.5333333 , Recall =  0.2909091 , F-score =  0.3764706 
+## Accuracy =  0.7902622 , Error rate =  0.2097378 , Precision =  0.4893617 , Recall =  0.4181818 , F-score =  0.4509804 
+## Accuracy =  0.7977528 , Error rate =  0.2022472 , Precision =  0.5116279 , Recall =  0.4 , F-score =  0.4489796 
+## Accuracy =  0.7677903 , Error rate =  0.2322097 , Precision =  0.4 , Recall =  0.2545455 , F-score =  0.3111111 
+## Accuracy =  0.7752809 , Error rate =  0.2247191 , Precision =  0.4528302 , Recall =  0.4363636 , F-score =  0.4444444</code></pre>
 <p>Applying Boosting on the diabetes dataset and showing the results of each fold :</p>
 <pre class="r"><code>boost_diabetes &lt;- diabetesClassification(AdaBoostM1)
 for(d in boost_diabetes[[&quot;list_of_10_folds&quot;]]){
  cat(&quot;Accuracy = &quot;, d[[&quot;Accuracy&quot;]], &quot;, Error rate = &quot;, d[[&quot;Error_rate&quot;]], &quot;, Precision = &quot;, d[[&quot;Precision&quot;]], &quot;, Recall = &quot;, d[[&quot;Recall&quot;]], &quot;, F-score = &quot;, d[[&quot;F-score&quot;]], &quot;\n&quot;)
 }</code></pre>
-<pre><code>## Accuracy =  0.7291667 , Error rate =  0.2708333 , Precision =  0.7625899 , Recall =  0.848 , F-score =  0.8030303 
-## Accuracy =  0.7330729 , Error rate =  0.2669271 , Precision =  0.7767355 , Recall =  0.828 , F-score =  0.8015489 
-## Accuracy =  0.7578125 , Error rate =  0.2421875 , Precision =  0.7940075 , Recall =  0.848 , F-score =  0.8201161 
-## Accuracy =  0.7486979 , Error rate =  0.2513021 , Precision =  0.7879925 , Recall =  0.84 , F-score =  0.8131655 
-## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7851852 , Recall =  0.848 , F-score =  0.8153846 
-## Accuracy =  0.7460938 , Error rate =  0.2539062 , Precision =  0.7882798 , Recall =  0.834 , F-score =  0.8104956 
-## Accuracy =  0.7447917 , Error rate =  0.2552083 , Precision =  0.7878788 , Recall =  0.832 , F-score =  0.8093385 
-## Accuracy =  0.7460938 , Error rate =  0.2539062 , Precision =  0.7882798 , Recall =  0.834 , F-score =  0.8104956 
-## Accuracy =  0.7395833 , Error rate =  0.2604167 , Precision =  0.7798507 , Recall =  0.836 , F-score =  0.8069498 
-## Accuracy =  0.75 , Error rate =  0.25 , Precision =  0.7873134 , Recall =  0.844 , F-score =  0.8146718</code></pre>
+<pre><code>## Accuracy =  0.7421875 , Error rate =  0.2578125 , Precision =  0.7849057 , Recall =  0.832 , F-score =  0.807767 
+## Accuracy =  0.7408854 , Error rate =  0.2591146 , Precision =  0.7844991 , Recall =  0.83 , F-score =  0.8066084 
+## Accuracy =  0.7447917 , Error rate =  0.2552083 , Precision =  0.7773723 , Recall =  0.852 , F-score =  0.8129771 
+## Accuracy =  0.7473958 , Error rate =  0.2526042 , Precision =  0.7953668 , Recall =  0.824 , F-score =  0.8094303 
+## Accuracy =  0.7460938 , Error rate =  0.2539062 , Precision =  0.7829314 , Recall =  0.844 , F-score =  0.8123195 
+## Accuracy =  0.7421875 , Error rate =  0.2578125 , Precision =  0.7775735 , Recall =  0.846 , F-score =  0.8103448 
+## Accuracy =  0.7486979 , Error rate =  0.2513021 , Precision =  0.7826888 , Recall =  0.85 , F-score =  0.8149569 
+## Accuracy =  0.7382812 , Error rate =  0.2617188 , Precision =  0.7763401 , Recall =  0.84 , F-score =  0.8069164 
+## Accuracy =  0.7395833 , Error rate =  0.2604167 , Precision =  0.7697842 , Recall =  0.856 , F-score =  0.8106061 
+## Accuracy =  0.7434896 , Error rate =  0.2565104 , Precision =  0.7790055 , Recall =  0.846 , F-score =  0.8111218</code></pre>
 </div>
 <div id="formating-the-evaluation-metrics" class="section level2">
 <h2>4.1.2 Formating the evaluation metrics:</h2>
@@ -983,39 +983,39 @@ kable(accuracy_matrix)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7322115</td>
-<td align="right">0.8379808</td>
-<td align="right">0.7730769</td>
-<td align="right">0.6822115</td>
-<td align="right">0.7788462</td>
-<td align="right">0.7572115</td>
+<td align="right">0.7163462</td>
+<td align="right">0.8403846</td>
+<td align="right">0.7697115</td>
+<td align="right">0.6778846</td>
+<td align="right">0.7711538</td>
+<td align="right">0.7471154</td>
 </tr>
 <tr class="even">
 <td align="left">hepa</td>
-<td align="right">0.8354839</td>
-<td align="right">0.8051613</td>
-<td align="right">0.8045161</td>
-<td align="right">0.8264516</td>
-<td align="right">0.7696774</td>
-<td align="right">0.8141935</td>
+<td align="right">0.8296774</td>
+<td align="right">0.8006452</td>
+<td align="right">0.8077419</td>
+<td align="right">0.8283871</td>
+<td align="right">0.7703226</td>
+<td align="right">0.8122581</td>
 </tr>
 <tr class="odd">
 <td align="left">spect</td>
-<td align="right">0.8086142</td>
-<td align="right">0.8254682</td>
-<td align="right">0.8307116</td>
-<td align="right">0.7621723</td>
-<td align="right">0.8288390</td>
-<td align="right">0.7891386</td>
+<td align="right">0.8033708</td>
+<td align="right">0.8205993</td>
+<td align="right">0.8262172</td>
+<td align="right">0.7617978</td>
+<td align="right">0.8273408</td>
+<td align="right">0.7850187</td>
 </tr>
 <tr class="even">
 <td align="left">diabetes</td>
-<td align="right">0.7501302</td>
-<td align="right">0.7571615</td>
-<td align="right">0.7588542</td>
-<td align="right">0.7569010</td>
-<td align="right">0.7589844</td>
-<td align="right">0.7445312</td>
+<td align="right">0.7480469</td>
+<td align="right">0.7601563</td>
+<td align="right">0.7555990</td>
+<td align="right">0.7574219</td>
+<td align="right">0.7574219</td>
+<td align="right">0.7433594</td>
 </tr>
 </tbody>
 </table>
@@ -1035,39 +1035,39 @@ kable(accuracy_matrix)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7590348</td>
-<td align="right">0.8095088</td>
-<td align="right">0.7766174</td>
-<td align="right">0.7775626</td>
-<td align="right">0.7729775</td>
-<td align="right">0.7687268</td>
+<td align="right">0.7376971</td>
+<td align="right">0.8133575</td>
+<td align="right">0.7832957</td>
+<td align="right">0.7658629</td>
+<td align="right">0.7656832</td>
+<td align="right">0.7517937</td>
 </tr>
 <tr class="even">
 <td align="left">hepa</td>
-<td align="right">0.6523967</td>
-<td align="right">0.7600000</td>
-<td align="right">0.5278154</td>
-<td align="right">0.5629850</td>
-<td align="right">0.2260714</td>
-<td align="right">0.5836133</td>
+<td align="right">0.6271574</td>
+<td align="right">0.6883333</td>
+<td align="right">0.5381518</td>
+<td align="right">0.5677732</td>
+<td align="right">0.3011219</td>
+<td align="right">0.5731545</td>
 </tr>
 <tr class="odd">
 <td align="left">spect</td>
-<td align="right">0.5419388</td>
-<td align="right">0.5953972</td>
-<td align="right">0.6015191</td>
-<td align="right">0.4538167</td>
-<td align="right">0.6288982</td>
-<td align="right">0.4846449</td>
+<td align="right">0.5256441</td>
+<td align="right">0.5771887</td>
+<td align="right">0.5895399</td>
+<td align="right">0.4535768</td>
+<td align="right">0.6242616</td>
+<td align="right">0.4778462</td>
 </tr>
 <tr class="even">
 <td align="left">diabetes</td>
-<td align="right">0.8001254</td>
-<td align="right">0.7974045</td>
-<td align="right">0.7984504</td>
-<td align="right">0.7975338</td>
-<td align="right">0.7976468</td>
-<td align="right">0.7838113</td>
+<td align="right">0.7934891</td>
+<td align="right">0.7992121</td>
+<td align="right">0.7976013</td>
+<td align="right">0.7982586</td>
+<td align="right">0.7946398</td>
+<td align="right">0.7810467</td>
 </tr>
 </tbody>
 </table>
@@ -1087,39 +1087,39 @@ kable(accuracy_matrix)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7315315</td>
-<td align="right">0.9108108</td>
-<td align="right">0.8072072</td>
-<td align="right">0.5666667</td>
-<td align="right">0.8297297</td>
-<td align="right">0.7801802</td>
+<td align="right">0.7270270</td>
+<td align="right">0.9099099</td>
+<td align="right">0.7864865</td>
+<td align="right">0.5711712</td>
+<td align="right">0.8261261</td>
+<td align="right">0.7855856</td>
 </tr>
 <tr class="even">
 <td align="left">hepa</td>
-<td align="right">0.4375000</td>
-<td align="right">0.0812500</td>
-<td align="right">0.4906250</td>
-<td align="right">0.7125000</td>
-<td align="right">0.0500000</td>
-<td align="right">0.3843750</td>
+<td align="right">0.4250000</td>
+<td align="right">0.0687500</td>
+<td align="right">0.5125000</td>
+<td align="right">0.7062500</td>
+<td align="right">0.0750000</td>
+<td align="right">0.3593750</td>
 </tr>
 <tr class="odd">
 <td align="left">spect</td>
-<td align="right">0.4818182</td>
+<td align="right">0.4945455</td>
 <td align="right">0.4836364</td>
-<td align="right">0.5327273</td>
-<td align="right">0.7581818</td>
-<td align="right">0.4163636</td>
-<td align="right">0.2945455</td>
+<td align="right">0.5200000</td>
+<td align="right">0.7618182</td>
+<td align="right">0.4018182</td>
+<td align="right">0.3545455</td>
 </tr>
 <tr class="even">
 <td align="left">diabetes</td>
-<td align="right">0.8216000</td>
-<td align="right">0.8406000</td>
-<td align="right">0.8422000</td>
-<td align="right">0.8398000</td>
-<td align="right">0.8440000</td>
-<td align="right">0.8392000</td>
+<td align="right">0.8290000</td>
+<td align="right">0.8436000</td>
+<td align="right">0.8370000</td>
+<td align="right">0.8396000</td>
+<td align="right">0.8462000</td>
+<td align="right">0.8420000</td>
 </tr>
 </tbody>
 </table>
@@ -1139,39 +1139,39 @@ kable(accuracy_matrix)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7447038</td>
-<td align="right">0.8570834</td>
-<td align="right">0.7914666</td>
-<td align="right">0.6554899</td>
-<td align="right">0.8001154</td>
-<td align="right">0.7742962</td>
+<td align="right">0.7321502</td>
+<td align="right">0.8588546</td>
+<td align="right">0.7847463</td>
+<td align="right">0.6542718</td>
+<td align="right">0.7941727</td>
+<td align="right">0.7680101</td>
 </tr>
 <tr class="even">
 <td align="left">hepa</td>
-<td align="right">0.5233156</td>
-<td align="right">0.1456522</td>
-<td align="right">0.5077425</td>
-<td align="right">0.6288166</td>
-<td align="right">NaN</td>
-<td align="right">0.4612536</td>
+<td align="right">0.5055637</td>
+<td align="right">0.1233401</td>
+<td align="right">0.5241816</td>
+<td align="right">0.6292926</td>
+<td align="right">0.1184548</td>
+<td align="right">0.4414598</td>
 </tr>
 <tr class="odd">
 <td align="left">spect</td>
-<td align="right">0.5096524</td>
-<td align="right">0.5332806</td>
-<td align="right">0.5644601</td>
-<td align="right">0.5677337</td>
-<td align="right">0.5003978</td>
-<td align="right">0.3582457</td>
+<td align="right">0.5091587</td>
+<td align="right">0.5260624</td>
+<td align="right">0.5521782</td>
+<td align="right">0.5685758</td>
+<td align="right">0.4878634</td>
+<td align="right">0.4020778</td>
 </tr>
 <tr class="even">
 <td align="left">diabetes</td>
-<td align="right">0.8106209</td>
-<td align="right">0.8184172</td>
-<td align="right">0.8197348</td>
-<td align="right">0.8181171</td>
-<td align="right">0.8201535</td>
-<td align="right">0.8105197</td>
+<td align="right">0.8107469</td>
+<td align="right">0.8207847</td>
+<td align="right">0.8168217</td>
+<td align="right">0.8184050</td>
+<td align="right">0.8195828</td>
+<td align="right">0.8103048</td>
 </tr>
 </tbody>
 </table>
@@ -1186,123 +1186,123 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_a&quot;]]) and unlist(svm_sonar[[&quot;all_a&quot;]])
-## t = 7.7584, df = 9, p-value = 2.826e-05
+## t = 14.531, df = 9, p-value = 1.486e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.04597948 0.08382822
+##  0.05967117 0.08167498
 ## sample estimates:
 ## mean of the differences 
-##              0.06490385</code></pre>
+##              0.07067308</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_a&quot;]]), unlist(nb_sonar[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_a&quot;]]) and unlist(nb_sonar[[&quot;all_a&quot;]])
-## t = 24.27, df = 9, p-value = 1.638e-09
+## t = 20.98, df = 9, p-value = 5.952e-09
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1412501 0.1702884
+##  0.1449784 0.1800216
 ## sample estimates:
 ## mean of the differences 
-##               0.1557692</code></pre>
+##                  0.1625</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_a&quot;]]), unlist(c4.5_sonar[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_a&quot;]]) and unlist(c4.5_sonar[[&quot;all_a&quot;]])
-## t = 8.2889, df = 9, p-value = 1.665e-05
+## t = 14.69, df = 9, p-value = 1.352e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.07690348 0.13463498
+##  0.1049378 0.1431391
 ## sample estimates:
 ## mean of the differences 
-##               0.1057692</code></pre>
+##               0.1240385</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_a&quot;]]), unlist(bag_sonar[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_a&quot;]]) and unlist(bag_sonar[[&quot;all_a&quot;]])
-## t = 7.8653, df = 9, p-value = 2.534e-05
+## t = 6.7108, df = 9, p-value = 8.746e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.04212681 0.07614242
+##  0.04589361 0.09256793
 ## sample estimates:
 ## mean of the differences 
-##              0.05913462</code></pre>
+##              0.06923077</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_a&quot;]]), unlist(boost_sonar[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_a&quot;]]) and unlist(boost_sonar[[&quot;all_a&quot;]])
-## t = 7.5843, df = 9, p-value = 3.381e-05
+## t = 10.837, df = 9, p-value = 1.825e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.05667835 0.10486011
+##  0.07380058 0.11273788
 ## sample estimates:
 ## mean of the differences 
-##              0.08076923</code></pre>
-<p>Therefore we can deduce that Random Forest is the winner in sonar dataset for accuracy metric.</p>
+##              0.09326923</code></pre>
+<p>Since p-value &lt; 0.05 in all tests so we can deduce that Random Forest is the winner in sonar dataset for accuracy metric.</p>
 <p>For precision metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_p&quot;]]), unlist(svm_sonar[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_p&quot;]]) and unlist(svm_sonar[[&quot;all_p&quot;]])
-## t = 4.9765, df = 9, p-value = 0.0007631
+## t = 5.0953, df = 9, p-value = 0.0006493
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01794006 0.04784269
+##  0.01671514 0.04340836
 ## sample estimates:
 ## mean of the differences 
-##              0.03289138</code></pre>
+##              0.03006175</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_p&quot;]]), unlist(nb_sonar[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_p&quot;]]) and unlist(nb_sonar[[&quot;all_p&quot;]])
-## t = 5.7252, df = 9, p-value = 0.0002851
+## t = 5.5045, df = 9, p-value = 0.000378
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01932340 0.04456894
+##  0.02797603 0.06701321
 ## sample estimates:
 ## mean of the differences 
-##              0.03194617</code></pre>
+##              0.04749462</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_p&quot;]]), unlist(c4.5_sonar[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_p&quot;]]) and unlist(c4.5_sonar[[&quot;all_p&quot;]])
-## t = 3.8308, df = 9, p-value = 0.004023
+## t = 10.322, df = 9, p-value = 2.747e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.02066779 0.08028019
+##  0.05907840 0.09224238
 ## sample estimates:
 ## mean of the differences 
-##              0.05047399</code></pre>
+##              0.07566039</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_p&quot;]]), unlist(bag_sonar[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_p&quot;]]) and unlist(bag_sonar[[&quot;all_p&quot;]])
-## t = 4.9005, df = 9, p-value = 0.000847
+## t = 3.5909, df = 9, p-value = 0.005831
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01966785 0.05339473
+##  0.01764091 0.07770766
 ## sample estimates:
 ## mean of the differences 
-##              0.03653129</code></pre>
+##              0.04767429</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_p&quot;]]), unlist(boost_sonar[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_p&quot;]]) and unlist(boost_sonar[[&quot;all_p&quot;]])
-## t = 3.7786, df = 9, p-value = 0.004358
+## t = 8.6111, df = 9, p-value = 1.224e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01636680 0.06519727
+##  0.04539082 0.07773683
 ## sample estimates:
 ## mean of the differences 
-##              0.04078203</code></pre>
+##              0.06156382</code></pre>
 <p>Therefore we can deduce that Random Forest is the winner in sonar dataset for precision metric.</p>
 <p>For recall metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_r&quot;]]), unlist(svm_sonar[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
@@ -1310,61 +1310,61 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_r&quot;]]) and unlist(svm_sonar[[&quot;all_r&quot;]])
-## t = 9.0758, df = 9, p-value = 7.971e-06
+## t = 23.69, df = 9, p-value = 2.03e-09
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.07778026 0.12942695
+##  0.1116375 0.1352093
 ## sample estimates:
 ## mean of the differences 
-##               0.1036036</code></pre>
+##               0.1234234</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_r&quot;]]), unlist(nb_sonar[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_r&quot;]]) and unlist(nb_sonar[[&quot;all_r&quot;]])
-## t = 38.285, df = 9, p-value = 2.81e-11
+## t = 44.449, df = 9, p-value = 7.379e-12
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.3238097 0.3644786
+##  0.3214994 0.3559781
 ## sample estimates:
 ## mean of the differences 
-##               0.3441441</code></pre>
+##               0.3387387</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_r&quot;]]), unlist(c4.5_sonar[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_r&quot;]]) and unlist(c4.5_sonar[[&quot;all_r&quot;]])
-## t = 13.664, df = 9, p-value = 2.53e-07
+## t = 15.414, df = 9, p-value = 8.903e-08
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1495981 0.2089605
+##  0.1560430 0.2097227
 ## sample estimates:
 ## mean of the differences 
-##               0.1792793</code></pre>
+##               0.1828829</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_r&quot;]]), unlist(bag_sonar[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_r&quot;]]) and unlist(bag_sonar[[&quot;all_r&quot;]])
-## t = 6.4728, df = 9, p-value = 0.000115
+## t = 8.7315, df = 9, p-value = 1.093e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.05274413 0.10941804
+##  0.0620772 0.1054904
 ## sample estimates:
 ## mean of the differences 
-##              0.08108108</code></pre>
+##              0.08378378</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_r&quot;]]), unlist(boost_sonar[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_r&quot;]]) and unlist(boost_sonar[[&quot;all_r&quot;]])
-## t = 11.605, df = 9, p-value = 1.023e-06
+## t = 10.704, df = 9, p-value = 2.026e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1051672 0.1560940
+##  0.09804923 0.15059942
 ## sample estimates:
 ## mean of the differences 
-##               0.1306306</code></pre>
+##               0.1243243</code></pre>
 <p>Therefore we can deduce that Random Forest is the winner in sonar dataset for recall metric.</p>
 <p>For f-score metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_f&quot;]]), unlist(svm_sonar[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
@@ -1372,122 +1372,122 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_f&quot;]]) and unlist(svm_sonar[[&quot;all_f&quot;]])
-## t = 8.2778, df = 9, p-value = 1.683e-05
+## t = 18.432, df = 9, p-value = 1.863e-08
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.04768500 0.08354865
+##  0.06501303 0.08320364
 ## sample estimates:
 ## mean of the differences 
-##              0.06561682</code></pre>
+##              0.07410834</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_f&quot;]]), unlist(nb_sonar[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_f&quot;]]) and unlist(nb_sonar[[&quot;all_f&quot;]])
-## t = 30.783, df = 9, p-value = 1.974e-10
+## t = 29.113, df = 9, p-value = 3.246e-10
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1867789 0.2164080
+##  0.1886860 0.2204796
 ## sample estimates:
 ## mean of the differences 
-##               0.2015935</code></pre>
+##               0.2045828</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_f&quot;]]), unlist(c4.5_sonar[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_f&quot;]]) and unlist(c4.5_sonar[[&quot;all_f&quot;]])
-## t = 9.9226, df = 9, p-value = 3.817e-06
+## t = 14.781, df = 9, p-value = 1.282e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.0867592 0.1379999
+##  0.1073129 0.1460959
 ## sample estimates:
 ## mean of the differences 
-##               0.1123795</code></pre>
+##               0.1267044</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_f&quot;]]), unlist(bag_sonar[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_f&quot;]]) and unlist(bag_sonar[[&quot;all_f&quot;]])
-## t = 8.0262, df = 9, p-value = 2.156e-05
+## t = 8.1685, df = 9, p-value = 1.873e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.04091172 0.07302415
+##  0.04676919 0.08259463
 ## sample estimates:
 ## mean of the differences 
-##              0.05696794</code></pre>
+##              0.06468191</code></pre>
 <pre class="r"><code>t.test(unlist(rf_sonar[[&quot;all_f&quot;]]), unlist(boost_sonar[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_sonar[[&quot;all_f&quot;]]) and unlist(boost_sonar[[&quot;all_f&quot;]])
-## t = 8.7154, df = 9, p-value = 1.11e-05
+## t = 10.69, df = 9, p-value = 2.048e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.06129912 0.10427515
+##  0.0716208 0.1100683
 ## sample estimates:
 ## mean of the differences 
-##              0.08278713</code></pre>
+##              0.09084454</code></pre>
 <p>Therefore we can deduce that Random Forest is the winner in sonar dataset for all metrics. ##### So we can conclude that Random forest is the winner algorithm in sonar dataset ###In hepatitis dataset: We can notice that c4.5 is the winner for the accuracy metric by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_a&quot;]]), unlist(svm_hepa[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_a&quot;]]) and unlist(svm_hepa[[&quot;all_a&quot;]])
-## t = 7.632, df = 9, p-value = 3.218e-05
+## t = 2.4149, df = 9, p-value = 0.03893
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.02178875 0.04014673
+##  0.001387593 0.042483375
 ## sample estimates:
 ## mean of the differences 
-##              0.03096774</code></pre>
+##              0.02193548</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_a&quot;]]), unlist(nb_hepa[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_a&quot;]]) and unlist(nb_hepa[[&quot;all_a&quot;]])
-## t = 3.0963, df = 9, p-value = 0.0128
+## t = 0.18464, df = 9, p-value = 0.8576
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.002433249 0.015631267
+##  -0.01451858  0.01709923
 ## sample estimates:
 ## mean of the differences 
-##             0.009032258</code></pre>
+##             0.001290323</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_a&quot;]]), unlist(rf_hepa[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_a&quot;]]) and unlist(rf_hepa[[&quot;all_a&quot;]])
-## t = 11.112, df = 9, p-value = 1.478e-06
+## t = 5.0844, df = 9, p-value = 0.0006589
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.02414977 0.03649539
+##  0.01611518 0.04194934
 ## sample estimates:
 ## mean of the differences 
-##              0.03032258</code></pre>
+##              0.02903226</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_a&quot;]]), unlist(bag_hepa[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_a&quot;]]) and unlist(bag_hepa[[&quot;all_a&quot;]])
-## t = 16.218, df = 9, p-value = 5.716e-08
+## t = 10.038, df = 9, p-value = 3.467e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.05662746 0.07498544
+##  0.04597870 0.07273098
 ## sample estimates:
 ## mean of the differences 
-##              0.06580645</code></pre>
+##              0.05935484</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_a&quot;]]), unlist(boost_hepa[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_a&quot;]]) and unlist(boost_hepa[[&quot;all_a&quot;]])
-## t = 3.0111, df = 9, p-value = 0.01469
+## t = 2.535, df = 9, p-value = 0.03197
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.005295381 0.037285265
+##  0.001874642 0.032964067
 ## sample estimates:
 ## mean of the differences 
-##              0.02129032</code></pre>
+##              0.01741935</code></pre>
 <p>So we can deduce that the difference between accuracy of c4.5 and all algorithms is significant except for naive bayes</p>
 <p>We can notice that Random Forest is the winner for the precision metric by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_hepa[[&quot;all_p&quot;]]), unlist(svm_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
@@ -1495,122 +1495,122 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_hepa[[&quot;all_p&quot;]]) and unlist(svm_hepa[[&quot;all_p&quot;]])
-## t = 4.0219, df = 9, p-value = 0.003009
+## t = 2.6695, df = 9, p-value = 0.02564
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1015904 0.3627787
+##  0.02291508 0.27744803
 ## sample estimates:
 ## mean of the differences 
-##               0.2321846</code></pre>
+##               0.1501816</code></pre>
 <pre class="r"><code>t.test(unlist(rf_hepa[[&quot;all_p&quot;]]), unlist(nb_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_hepa[[&quot;all_p&quot;]]) and unlist(nb_hepa[[&quot;all_p&quot;]])
-## t = 3.3832, df = 9, p-value = 0.008086
+## t = 2.0962, df = 9, p-value = 0.06552
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.0652809 0.3287491
+##  -0.009546011  0.250666198
 ## sample estimates:
 ## mean of the differences 
-##                0.197015</code></pre>
+##               0.1205601</code></pre>
 <pre class="r"><code>t.test(unlist(rf_hepa[[&quot;all_p&quot;]]), unlist(c4.5_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_hepa[[&quot;all_p&quot;]]) and unlist(c4.5_hepa[[&quot;all_p&quot;]])
-## t = 1.9858, df = 9, p-value = 0.07832
+## t = 0.81992, df = 9, p-value = 0.4334
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.01497493  0.23018158
+##  -0.1076073  0.2299591
 ## sample estimates:
 ## mean of the differences 
-##               0.1076033</code></pre>
+##              0.06117589</code></pre>
 <pre class="r"><code>t.test(unlist(rf_hepa[[&quot;all_p&quot;]]), unlist(bag_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_hepa[[&quot;all_p&quot;]]) and unlist(bag_hepa[[&quot;all_p&quot;]])
-## t = 6.9612, df = 9, p-value = 6.602e-05
+## t = 6.1797, df = 9, p-value = 0.0001628
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.3604185 0.7074387
+##  0.2454686 0.5289542
 ## sample estimates:
 ## mean of the differences 
-##               0.5339286</code></pre>
+##               0.3872114</code></pre>
 <pre class="r"><code>t.test(unlist(rf_hepa[[&quot;all_p&quot;]]), unlist(boost_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_hepa[[&quot;all_p&quot;]]) and unlist(boost_hepa[[&quot;all_p&quot;]])
-## t = 2.4741, df = 9, p-value = 0.03533
+## t = 2.0216, df = 9, p-value = 0.07393
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01511161 0.33766188
+##  -0.01370594  0.24406365
 ## sample estimates:
 ## mean of the differences 
-##               0.1763867</code></pre>
+##               0.1151789</code></pre>
 <p>results of T test cannot show the significant difference between Random Forest and other algorithms so we can try c4.5 as it’s the second winner:</p>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_p&quot;]]), unlist(svm_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_p&quot;]]) and unlist(svm_hepa[[&quot;all_p&quot;]])
-## t = 10.514, df = 9, p-value = 2.354e-06
+## t = 3.1908, df = 9, p-value = 0.01099
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.09777623 0.15138631
+##  0.02590386 0.15210748
 ## sample estimates:
 ## mean of the differences 
-##               0.1245813</code></pre>
+##              0.08900567</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_p&quot;]]), unlist(nb_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_p&quot;]]) and unlist(nb_hepa[[&quot;all_p&quot;]])
-## t = 8.8754, df = 9, p-value = 9.568e-06
+## t = 2.958, df = 9, p-value = 0.01601
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.06662251 0.11220089
+##  0.01397025 0.10479816
 ## sample estimates:
 ## mean of the differences 
-##               0.0894117</code></pre>
+##               0.0593842</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_p&quot;]]), unlist(rf_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_p&quot;]]) and unlist(rf_hepa[[&quot;all_p&quot;]])
-## t = -1.9858, df = 9, p-value = 0.07832
+## t = -0.81992, df = 9, p-value = 0.4334
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.23018158  0.01497493
+##  -0.2299591  0.1076073
 ## sample estimates:
 ## mean of the differences 
-##              -0.1076033</code></pre>
+##             -0.06117589</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_p&quot;]]), unlist(bag_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_p&quot;]]) and unlist(bag_hepa[[&quot;all_p&quot;]])
-## t = 9.7268, df = 9, p-value = 4.504e-06
+## t = 9.1893, df = 9, p-value = 7.199e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.3271750 0.5254755
+##  0.2457742 0.4062968
 ## sample estimates:
 ## mean of the differences 
-##               0.4263252</code></pre>
+##               0.3260355</code></pre>
 <pre class="r"><code>t.test(unlist(c4.5_hepa[[&quot;all_p&quot;]]), unlist(boost_hepa[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(c4.5_hepa[[&quot;all_p&quot;]]) and unlist(boost_hepa[[&quot;all_p&quot;]])
-## t = 2.4174, df = 9, p-value = 0.03878
+## t = 2.0137, df = 9, p-value = 0.07488
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.004416711 0.133150138
+##  -0.006663539  0.114669472
 ## sample estimates:
 ## mean of the differences 
-##              0.06878342</code></pre>
+##              0.05400297</code></pre>
 <p>so we can deduce the segnificant difference for all algorithms except for rf</p>
 <p>For recall metric we can notice that Naive Bayes is the winner by applying T test:</p>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_r&quot;]]), unlist(svm_hepa[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
@@ -1618,61 +1618,61 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_r&quot;]]) and unlist(svm_hepa[[&quot;all_r&quot;]])
-## t = 8.9294, df = 9, p-value = 9.106e-06
+## t = 10.147, df = 9, p-value = 3.168e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1656658 0.2780842
+##  0.1505562 0.2369438
 ## sample estimates:
 ## mean of the differences 
-##                0.221875</code></pre>
+##                 0.19375</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_r&quot;]]), unlist(c4.5_hepa[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_r&quot;]]) and unlist(c4.5_hepa[[&quot;all_r&quot;]])
-## t = 24.512, df = 9, p-value = 1.5e-09
+## t = 11.023, df = 9, p-value = 1.582e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.2496206 0.3003794
+##  0.2235299 0.3389701
 ## sample estimates:
 ## mean of the differences 
-##                   0.275</code></pre>
+##                 0.28125</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_r&quot;]]), unlist(rf_hepa[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_r&quot;]]) and unlist(rf_hepa[[&quot;all_r&quot;]])
-## t = 56.266, df = 9, p-value = 8.905e-13
+## t = 37.666, df = 9, p-value = 3.252e-11
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.6058706 0.6566294
+##  0.5992128 0.6757872
 ## sample estimates:
 ## mean of the differences 
-##                 0.63125</code></pre>
+##                  0.6375</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_r&quot;]]), unlist(bag_hepa[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_r&quot;]]) and unlist(bag_hepa[[&quot;all_r&quot;]])
-## t = 54.537, df = 9, p-value = 1.178e-12
+## t = 41.233, df = 9, p-value = 1.446e-11
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.6350197 0.6899803
+##  0.5966179 0.6658821
 ## sample estimates:
 ## mean of the differences 
-##                  0.6625</code></pre>
+##                 0.63125</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_r&quot;]]), unlist(boost_hepa[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_r&quot;]]) and unlist(boost_hepa[[&quot;all_r&quot;]])
-## t = 21, df = 9, p-value = 5.902e-09
+## t = 20.303, df = 9, p-value = 7.95e-09
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.2927788 0.3634712
+##  0.3082269 0.3855231
 ## sample estimates:
 ## mean of the differences 
-##                0.328125</code></pre>
+##                0.346875</code></pre>
 <p>so we can see the difference between Naive Bayes and other algorithms is signifcant</p>
 <p>For f-score metric we can notice that Naive Bayes is the winner by applying T test:</p>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_f&quot;]]), unlist(svm_hepa[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
@@ -1680,122 +1680,122 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_f&quot;]]) and unlist(svm_hepa[[&quot;all_f&quot;]])
-## t = 7.1203, df = 9, p-value = 5.543e-05
+## t = 7.6049, df = 9, p-value = 3.31e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.08260803 0.15954028
+##  0.0738446 0.1363774
 ## sample estimates:
 ## mean of the differences 
-##               0.1210742</code></pre>
+##                0.105111</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_f&quot;]]), unlist(c4.5_hepa[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_f&quot;]]) and unlist(c4.5_hepa[[&quot;all_f&quot;]])
-## t = 17.15, df = 9, p-value = 3.507e-08
+## t = 5.2232, df = 9, p-value = 0.0005469
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.09158521 0.11941691
+##  0.07014168 0.17731610
 ## sample estimates:
 ## mean of the differences 
-##               0.1055011</code></pre>
+##               0.1237289</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_f&quot;]]), unlist(rf_hepa[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_f&quot;]]) and unlist(rf_hepa[[&quot;all_f&quot;]])
-## t = 28.625, df = 9, p-value = 3.774e-10
+## t = 29.999, df = 9, p-value = 2.485e-10
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.4449811 0.5213477
+##  0.4677995 0.5441053
 ## sample estimates:
 ## mean of the differences 
-##               0.4831644</code></pre>
+##               0.5059524</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_f&quot;]]), unlist(bag_hepa[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_f&quot;]]) and unlist(bag_hepa[[&quot;all_f&quot;]])
-## t = 42.995, df = 7, p-value = 9.611e-10
+## t = 40.723, df = 9, p-value = 1.617e-11
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.4985338 0.5565620
+##  0.4824607 0.5392149
 ## sample estimates:
 ## mean of the differences 
-##               0.5275479</code></pre>
+##               0.5108378</code></pre>
 <pre class="r"><code>t.test(unlist(nb_hepa[[&quot;all_f&quot;]]), unlist(boost_hepa[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_hepa[[&quot;all_f&quot;]]) and unlist(boost_hepa[[&quot;all_f&quot;]])
-## t = 11.352, df = 9, p-value = 1.234e-06
+## t = 12.781, df = 9, p-value = 4.493e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1341716 0.2009544
+##  0.1545872 0.2210784
 ## sample estimates:
 ## mean of the differences 
-##                0.167563</code></pre>
+##               0.1878328</code></pre>
 <p>so we can see the difference between Naive Bayes and other algorithms is signifcant ##### So we can deduce that C4.5 and Naive Bayes are similarly winning in hepatities datset ###In spect dataset: For accuracy metric we can notice that Bagging is the winner by applying T test:</p>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_a&quot;]]), unlist(svm_spect[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_a&quot;]]) and unlist(svm_spect[[&quot;all_a&quot;]])
-## t = -0.52868, df = 9, p-value = 0.6098
+## t = 0.29032, df = 9, p-value = 0.7781
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009885531  0.006140213
+##  -0.007631320  0.009878511
 ## sample estimates:
 ## mean of the differences 
-##            -0.001872659</code></pre>
+##             0.001123596</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_a&quot;]]), unlist(c4.5_spect[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_a&quot;]]) and unlist(c4.5_spect[[&quot;all_a&quot;]])
-## t = 4.1228, df = 9, p-value = 0.002587
+## t = 3.7199, df = 9, p-value = 0.004771
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.009127507 0.031321932
+##  0.009393399 0.038546675
 ## sample estimates:
 ## mean of the differences 
-##              0.02022472</code></pre>
+##              0.02397004</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_a&quot;]]), unlist(rf_spect[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_a&quot;]]) and unlist(rf_spect[[&quot;all_a&quot;]])
-## t = 0.74627, df = 9, p-value = 0.4745
+## t = 2.0769, df = 9, p-value = 0.0676
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.006847077  0.013588650
+##  -0.0006012592  0.0140844053
 ## sample estimates:
 ## mean of the differences 
-##             0.003370787</code></pre>
+##             0.006741573</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_a&quot;]]), unlist(nb_spect[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_a&quot;]]) and unlist(nb_spect[[&quot;all_a&quot;]])
-## t = 16.753, df = 9, p-value = 4.305e-08
+## t = 17.078, df = 9, p-value = 3.638e-08
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.05766471 0.07566863
+##  0.05686134 0.07422480
 ## sample estimates:
 ## mean of the differences 
-##              0.06666667</code></pre>
+##              0.06554307</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_a&quot;]]), unlist(boost_spect[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_a&quot;]]) and unlist(boost_spect[[&quot;all_a&quot;]])
-## t = 7.3655, df = 9, p-value = 4.256e-05
+## t = 6.8614, df = 9, p-value = 7.378e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.02750730 0.05189345
+##  0.02836889 0.05627531
 ## sample estimates:
 ## mean of the differences 
-##              0.03970037</code></pre>
+##               0.0423221</code></pre>
 <p>so the difference between bagging and other algorithms is significant except for Random Forest and SVM.</p>
 <p>For precision metric we can notice that Bagging is the winner by applying T test:</p>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_p&quot;]]), unlist(svm_spect[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
@@ -1803,61 +1803,61 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_p&quot;]]) and unlist(svm_spect[[&quot;all_p&quot;]])
-## t = 1.9167, df = 9, p-value = 0.08752
+## t = 2.5095, df = 9, p-value = 0.03334
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.004934697  0.059692939
+##  0.003421686 0.066021727
 ## sample estimates:
 ## mean of the differences 
-##              0.02737912</code></pre>
+##              0.03472171</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_p&quot;]]), unlist(c4.5_spect[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_p&quot;]]) and unlist(c4.5_spect[[&quot;all_p&quot;]])
-## t = 5.5093, df = 9, p-value = 0.0003756
+## t = 4.9528, df = 9, p-value = 0.0007883
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.05125348 0.12266541
+##  0.05357449 0.14366053
 ## sample estimates:
 ## mean of the differences 
-##              0.08695945</code></pre>
+##              0.09861751</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_p&quot;]]), unlist(rf_spect[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_p&quot;]]) and unlist(rf_spect[[&quot;all_p&quot;]])
-## t = 1.9007, df = 9, p-value = 0.08979
+## t = 4.6898, df = 9, p-value = 0.001136
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.006370952  0.073372886
+##  0.02436680 0.06977901
 ## sample estimates:
 ## mean of the differences 
-##              0.03350097</code></pre>
+##              0.04707291</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_p&quot;]]), unlist(nb_spect[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_p&quot;]]) and unlist(nb_spect[[&quot;all_p&quot;]])
-## t = 11.848, df = 9, p-value = 8.582e-07
+## t = 13.377, df = 9, p-value = 3.037e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1416533 0.2085098
+##  0.1418210 0.1995487
 ## sample estimates:
 ## mean of the differences 
-##               0.1750815</code></pre>
+##               0.1706849</code></pre>
 <pre class="r"><code>t.test(unlist(bag_spect[[&quot;all_p&quot;]]), unlist(boost_spect[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_spect[[&quot;all_p&quot;]]) and unlist(boost_spect[[&quot;all_p&quot;]])
-## t = 6.6813, df = 9, p-value = 9.044e-05
+## t = 6.7437, df = 9, p-value = 8.425e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.09541212 0.19309453
+##  0.09730077 0.19553000
 ## sample estimates:
 ## mean of the differences 
-##               0.1442533</code></pre>
+##               0.1464154</code></pre>
 <p>so the difference between bagging and other algorithms is significant except for SVM.</p>
 <p>For precision metric we can notice that Naive Bayes is the winner by applying T test:</p>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_r&quot;]]), unlist(svm_spect[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
@@ -1865,61 +1865,61 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_r&quot;]]) and unlist(svm_spect[[&quot;all_r&quot;]])
-## t = 22.074, df = 9, p-value = 3.797e-09
+## t = 36.273, df = 9, p-value = 4.556e-11
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.2023500 0.2485591
+##  0.2267371 0.2568992
 ## sample estimates:
 ## mean of the differences 
-##               0.2254545</code></pre>
+##               0.2418182</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_r&quot;]]), unlist(c4.5_spect[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_r&quot;]]) and unlist(c4.5_spect[[&quot;all_r&quot;]])
-## t = 60.936, df = 9, p-value = 4.352e-13
+## t = 49, df = 9, p-value = 3.079e-12
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.2661040 0.2866233
+##  0.2549337 0.2796118
 ## sample estimates:
 ## mean of the differences 
-##               0.2763636</code></pre>
+##               0.2672727</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_r&quot;]]), unlist(rf_spect[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_r&quot;]]) and unlist(rf_spect[[&quot;all_r&quot;]])
-## t = 34.846, df = 9, p-value = 6.522e-11
+## t = 34.117, df = 9, p-value = 7.878e-11
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.2567224 0.2923685
+##  0.2597368 0.2966268
 ## sample estimates:
 ## mean of the differences 
-##               0.2745455</code></pre>
+##               0.2781818</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_r&quot;]]), unlist(bag_spect[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_r&quot;]]) and unlist(bag_spect[[&quot;all_r&quot;]])
-## t = 35.25, df = 9, p-value = 5.883e-11
+## t = 19.844, df = 9, p-value = 9.728e-09
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.3198821 0.3637543
+##  0.3189614 0.4010386
 ## sample estimates:
 ## mean of the differences 
-##               0.3418182</code></pre>
+##                    0.36</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_r&quot;]]), unlist(boost_spect[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_r&quot;]]) and unlist(boost_spect[[&quot;all_r&quot;]])
-## t = 15.865, df = 9, p-value = 6.925e-08
+## t = 17.934, df = 9, p-value = 2.37e-08
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.3975289 0.5297438
+##  0.3559012 0.4586442
 ## sample estimates:
 ## mean of the differences 
-##               0.4636364</code></pre>
+##               0.4072727</code></pre>
 <p>so the difference between bagging and other algorithms is significant.</p>
 <p>For F-score metric we can notice that Naive Bayes is the winner by applying T test:</p>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_f&quot;]]), unlist(svm_spect[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
@@ -1927,122 +1927,122 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_f&quot;]]) and unlist(svm_spect[[&quot;all_f&quot;]])
-## t = 0.37927, df = 9, p-value = 0.7133
+## t = 2.9369, df = 9, p-value = 0.01657
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.01625149  0.02279865
+##  0.003767322 0.029027784
 ## sample estimates:
 ## mean of the differences 
-##             0.003273581</code></pre>
+##              0.01639755</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_f&quot;]]), unlist(c4.5_spect[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_f&quot;]]) and unlist(c4.5_spect[[&quot;all_f&quot;]])
-## t = 8.2361, df = 9, p-value = 1.753e-05
+## t = 8.6953, df = 9, p-value = 1.131e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.04212852 0.07403395
+##  0.04395915 0.07487499
 ## sample estimates:
 ## mean of the differences 
-##              0.05808123</code></pre>
+##              0.05941707</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_f&quot;]]), unlist(rf_spect[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_f&quot;]]) and unlist(rf_spect[[&quot;all_f&quot;]])
-## t = 4.159, df = 9, p-value = 0.002451
+## t = 5.568, df = 9, p-value = 0.0003483
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.01571337 0.05319274
+##  0.02524103 0.05978574
 ## sample estimates:
 ## mean of the differences 
-##              0.03445305</code></pre>
+##              0.04251339</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_f&quot;]]), unlist(bag_spect[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_f&quot;]]) and unlist(bag_spect[[&quot;all_f&quot;]])
-## t = 6.8315, df = 9, p-value = 7.63e-05
+## t = 5.0297, df = 9, p-value = 0.0007096
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.04503858 0.08963322
+##  0.0444115 0.1170132
 ## sample estimates:
 ## mean of the differences 
-##               0.0673359</code></pre>
+##              0.08071235</code></pre>
 <pre class="r"><code>t.test(unlist(nb_spect[[&quot;all_f&quot;]]), unlist(boost_spect[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(nb_spect[[&quot;all_f&quot;]]) and unlist(boost_spect[[&quot;all_f&quot;]])
-## t = 9.5979, df = 9, p-value = 5.03e-06
+## t = 10.776, df = 9, p-value = 1.915e-06
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.1601133 0.2588626
+##  0.1315456 0.2014503
 ## sample estimates:
 ## mean of the differences 
-##               0.2094879</code></pre>
-<p>so the difference between bagging and other algorithms is significant. ##### So we can deduce that Naive Bayes is the winner in spect datset ###In diabetes dataset We can notice that Random Forest is the winner for the accuracy metric by applying Paired T Test:</p>
+##               0.1664979</code></pre>
+<p>so the difference between bagging and other algorithms is significant. ##### So we can deduce that Naive Bayes and Bagging are the winners in spect datset ###In diabetes dataset We can notice that Random Forest is the winner for the accuracy metric by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_a&quot;]]), unlist(svm_diabetes[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_a&quot;]]) and unlist(svm_diabetes[[&quot;all_a&quot;]])
-## t = -0.50769, df = 9, p-value = 0.6239
+## t = 1.1962, df = 9, p-value = 0.2622
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009234996  0.005849580
+##  -0.004061108  0.013175691
 ## sample estimates:
 ## mean of the differences 
-##            -0.001692708</code></pre>
+##             0.004557292</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_a&quot;]]), unlist(nb_diabetes[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_a&quot;]]) and unlist(nb_diabetes[[&quot;all_a&quot;]])
-## t = 0.10714, df = 9, p-value = 0.917
+## t = 0.7919, df = 9, p-value = 0.4488
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.005237882  0.005758715
+##  -0.005076647  0.010545397
 ## sample estimates:
 ## mean of the differences 
-##            0.0002604167</code></pre>
+##             0.002734375</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_a&quot;]]), unlist(c4.5_diabetes[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_a&quot;]]) and unlist(c4.5_diabetes[[&quot;all_a&quot;]])
-## t = 1.6923, df = 9, p-value = 0.1248
+## t = 2.8593, df = 9, p-value = 0.0188
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.002367776  0.016430276
+##  0.00252902 0.02168973
 ## sample estimates:
 ## mean of the differences 
-##              0.00703125</code></pre>
+##              0.01210938</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_a&quot;]]), unlist(bag_diabetes[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_a&quot;]]) and unlist(bag_diabetes[[&quot;all_a&quot;]])
-## t = -0.35517, df = 9, p-value = 0.7306
+## t = 0.61691, df = 9, p-value = 0.5526
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.013433553  0.009787719
+##  -0.007292408  0.012761158
 ## sample estimates:
 ## mean of the differences 
-##            -0.001822917</code></pre>
+##             0.002734375</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_a&quot;]]), unlist(boost_diabetes[[&quot;all_a&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_a&quot;]]) and unlist(boost_diabetes[[&quot;all_a&quot;]])
-## t = 2.7719, df = 9, p-value = 0.02168
+## t = 5.0864, df = 9, p-value = 0.0006571
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.002322769 0.022937648
+##  0.009326506 0.024267244
 ## sample estimates:
 ## mean of the differences 
-##              0.01263021</code></pre>
+##              0.01679687</code></pre>
 <p>so the difference between Random Forest and other algorithms is significant except for SVM and Bagging.</p>
 <p>We can notice that Random Forest is the winner for the precision metric by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_p&quot;]]), unlist(svm_diabetes[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
@@ -2050,61 +2050,61 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_p&quot;]]) and unlist(svm_diabetes[[&quot;all_p&quot;]])
-## t = -0.38601, df = 9, p-value = 0.7085
+## t = 0.52804, df = 9, p-value = 0.6102
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.007174880  0.005083207
+##  -0.005290091  0.008511759
 ## sample estimates:
 ## mean of the differences 
-##            -0.001045836</code></pre>
+##             0.001610834</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_p&quot;]]), unlist(nb_diabetes[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_p&quot;]]) and unlist(nb_diabetes[[&quot;all_p&quot;]])
-## t = -0.064007, df = 9, p-value = 0.9504
+## t = 0.31339, df = 9, p-value = 0.7611
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.004697704  0.004439178
+##  -0.005929291  0.007836310
 ## sample estimates:
 ## mean of the differences 
-##           -0.0001292632</code></pre>
+##            0.0009535098</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_p&quot;]]), unlist(c4.5_diabetes[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_p&quot;]]) and unlist(c4.5_diabetes[[&quot;all_p&quot;]])
-## t = -0.94882, df = 9, p-value = 0.3675
+## t = 1.6963, df = 9, p-value = 0.1241
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009207960  0.003766206
+##  -0.00190926  0.01335528
 ## sample estimates:
 ## mean of the differences 
-##            -0.002720877</code></pre>
+##             0.005723011</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_p&quot;]]), unlist(bag_diabetes[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_p&quot;]]) and unlist(bag_diabetes[[&quot;all_p&quot;]])
-## t = -0.058462, df = 9, p-value = 0.9547
+## t = 1.1323, df = 9, p-value = 0.2868
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009616865  0.009132324
+##  -0.004562074  0.013706739
 ## sample estimates:
 ## mean of the differences 
-##           -0.0002422703</code></pre>
+##             0.004572332</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_p&quot;]]), unlist(boost_diabetes[[&quot;all_p&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_p&quot;]]) and unlist(boost_diabetes[[&quot;all_p&quot;]])
-## t = 3.4478, df = 9, p-value = 0.0073
+## t = 4.7308, df = 9, p-value = 0.001073
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.004674414 0.022512071
+##  0.00947913 0.02685167
 ## sample estimates:
 ## mean of the differences 
-##              0.01359324</code></pre>
+##               0.0181654</code></pre>
 <p>so the difference between Random Forest and other algorithms is significant except for SVM and C4.5.</p>
 <p>We can notice that there is now winner classifier as the difference between classifiers are small so we try to calculate T test for Bagging with other classifiers</p>
 <pre class="r"><code>t.test(unlist(bag_diabetes[[&quot;all_r&quot;]]), unlist(svm_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
@@ -2112,244 +2112,244 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_diabetes[[&quot;all_r&quot;]]) and unlist(svm_diabetes[[&quot;all_r&quot;]])
-## t = 0.45195, df = 9, p-value = 0.662
+## t = 4.1162, df = 9, p-value = 0.002613
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.007209585  0.010809585
+##  0.004143911 0.014256089
 ## sample estimates:
 ## mean of the differences 
-##                  0.0018</code></pre>
+##                  0.0092</code></pre>
 <pre class="r"><code>t.test(unlist(bag_diabetes[[&quot;all_r&quot;]]), unlist(nb_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_diabetes[[&quot;all_r&quot;]]) and unlist(nb_diabetes[[&quot;all_r&quot;]])
-## t = 1.5804, df = 9, p-value = 0.1485
+## t = 3.498, df = 9, p-value = 0.006745
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.001811647  0.010211647
+##  0.00233177 0.01086823
 ## sample estimates:
 ## mean of the differences 
-##                  0.0042</code></pre>
+##                  0.0066</code></pre>
 <pre class="r"><code>t.test(unlist(bag_diabetes[[&quot;all_r&quot;]]), unlist(c4.5_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_diabetes[[&quot;all_r&quot;]]) and unlist(c4.5_diabetes[[&quot;all_r&quot;]])
-## t = 3.8103, df = 9, p-value = 0.004151
+## t = 4.0273, df = 9, p-value = 0.002985
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.009101286 0.035698714
+##  0.007538708 0.026861292
 ## sample estimates:
 ## mean of the differences 
-##                  0.0224</code></pre>
+##                  0.0172</code></pre>
 <pre class="r"><code>t.test(unlist(bag_diabetes[[&quot;all_r&quot;]]), unlist(rf_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_diabetes[[&quot;all_r&quot;]]) and unlist(rf_diabetes[[&quot;all_r&quot;]])
-## t = 0.93097, df = 9, p-value = 0.3762
+## t = 0.66485, df = 9, p-value = 0.5228
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.004861607  0.011661607
+##  -0.006246548  0.011446548
 ## sample estimates:
 ## mean of the differences 
-##                  0.0034</code></pre>
+##                  0.0026</code></pre>
 <pre class="r"><code>t.test(unlist(bag_diabetes[[&quot;all_r&quot;]]), unlist(boost_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(bag_diabetes[[&quot;all_r&quot;]]) and unlist(boost_diabetes[[&quot;all_r&quot;]])
-## t = 1.272, df = 9, p-value = 0.2353
+## t = 1.1335, df = 9, p-value = 0.2863
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.003736459  0.013336459
+##  -0.004181861  0.012581861
 ## sample estimates:
 ## mean of the differences 
-##                  0.0048</code></pre>
+##                  0.0042</code></pre>
 <p>then we try Random forest with the other classifiers:</p>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_r&quot;]]), unlist(svm_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_r&quot;]]) and unlist(svm_diabetes[[&quot;all_r&quot;]])
-## t = -0.45716, df = 9, p-value = 0.6584
+## t = 1.9192, df = 9, p-value = 0.08717
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009517191  0.006317191
+##  -0.001179541  0.014379541
 ## sample estimates:
 ## mean of the differences 
-##                 -0.0016</code></pre>
+##                  0.0066</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_r&quot;]]), unlist(nb_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_r&quot;]]) and unlist(nb_diabetes[[&quot;all_r&quot;]])
-## t = 0.33753, df = 9, p-value = 0.7435
+## t = 1.4064, df = 9, p-value = 0.1932
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.004561731  0.006161731
+##  -0.002433795  0.010433795
 ## sample estimates:
 ## mean of the differences 
-##                   8e-04</code></pre>
+##                   0.004</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_r&quot;]]), unlist(c4.5_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_r&quot;]]) and unlist(c4.5_diabetes[[&quot;all_r&quot;]])
-## t = 3.3529, df = 9, p-value = 0.008484
+## t = 2.6833, df = 9, p-value = 0.02507
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.006181109 0.031818891
+##  0.00229161 0.02690839
 ## sample estimates:
 ## mean of the differences 
-##                   0.019</code></pre>
+##                  0.0146</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_r&quot;]]), unlist(bag_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_r&quot;]]) and unlist(bag_diabetes[[&quot;all_r&quot;]])
-## t = -0.93097, df = 9, p-value = 0.3762
+## t = -0.66485, df = 9, p-value = 0.5228
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.011661607  0.004861607
+##  -0.011446548  0.006246548
 ## sample estimates:
 ## mean of the differences 
-##                 -0.0034</code></pre>
+##                 -0.0026</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_r&quot;]]), unlist(boost_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_r&quot;]]) and unlist(boost_diabetes[[&quot;all_r&quot;]])
-## t = 0.29461, df = 9, p-value = 0.775
+## t = 0.43701, df = 9, p-value = 0.6724
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009349942  0.012149942
+##  -0.006682228  0.009882228
 ## sample estimates:
 ## mean of the differences 
-##                  0.0014</code></pre>
+##                  0.0016</code></pre>
 <p>then we try Boosting :</p>
 <pre class="r"><code>t.test(unlist(boost_diabetes[[&quot;all_r&quot;]]), unlist(svm_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(boost_diabetes[[&quot;all_r&quot;]]) and unlist(svm_diabetes[[&quot;all_r&quot;]])
-## t = -1.1303, df = 9, p-value = 0.2876
+## t = 1.2815, df = 9, p-value = 0.232
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.009004076  0.003004076
+##  -0.003825957  0.013825957
 ## sample estimates:
 ## mean of the differences 
-##                  -0.003</code></pre>
+##                   0.005</code></pre>
 <pre class="r"><code>t.test(unlist(boost_diabetes[[&quot;all_r&quot;]]), unlist(nb_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(boost_diabetes[[&quot;all_r&quot;]]) and unlist(nb_diabetes[[&quot;all_r&quot;]])
-## t = -0.19825, df = 9, p-value = 0.8473
+## t = 0.78633, df = 9, p-value = 0.4519
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.00744653  0.00624653
+##  -0.004504419  0.009304419
 ## sample estimates:
 ## mean of the differences 
-##                  -6e-04</code></pre>
+##                  0.0024</code></pre>
 <pre class="r"><code>t.test(unlist(boost_diabetes[[&quot;all_r&quot;]]), unlist(c4.5_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(boost_diabetes[[&quot;all_r&quot;]]) and unlist(c4.5_diabetes[[&quot;all_r&quot;]])
-## t = 2.8213, df = 9, p-value = 0.02
+## t = 1.9938, df = 9, p-value = 0.07732
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.003488136 0.031711864
+##  -0.001749388  0.027749388
 ## sample estimates:
 ## mean of the differences 
-##                  0.0176</code></pre>
+##                   0.013</code></pre>
 <pre class="r"><code>t.test(unlist(boost_diabetes[[&quot;all_r&quot;]]), unlist(bag_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(boost_diabetes[[&quot;all_r&quot;]]) and unlist(bag_diabetes[[&quot;all_r&quot;]])
-## t = -1.272, df = 9, p-value = 0.2353
+## t = -1.1335, df = 9, p-value = 0.2863
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.013336459  0.003736459
+##  -0.012581861  0.004181861
 ## sample estimates:
 ## mean of the differences 
-##                 -0.0048</code></pre>
+##                 -0.0042</code></pre>
 <pre class="r"><code>t.test(unlist(boost_diabetes[[&quot;all_r&quot;]]), unlist(rf_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(boost_diabetes[[&quot;all_r&quot;]]) and unlist(rf_diabetes[[&quot;all_r&quot;]])
-## t = -0.29461, df = 9, p-value = 0.775
+## t = -0.43701, df = 9, p-value = 0.6724
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.012149942  0.009349942
+##  -0.009882228  0.006682228
 ## sample estimates:
 ## mean of the differences 
-##                 -0.0014</code></pre>
+##                 -0.0016</code></pre>
 <p>then we try Naive Bayes</p>
 <pre class="r"><code>t.test(unlist(svm_diabetes[[&quot;all_r&quot;]]), unlist(nb_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(svm_diabetes[[&quot;all_r&quot;]]) and unlist(nb_diabetes[[&quot;all_r&quot;]])
-## t = 0.9246, df = 9, p-value = 0.3793
+## t = -1.378, df = 9, p-value = 0.2015
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.003471933  0.008271933
+##  -0.00686823  0.00166823
 ## sample estimates:
 ## mean of the differences 
-##                  0.0024</code></pre>
+##                 -0.0026</code></pre>
 <pre class="r"><code>t.test(unlist(svm_diabetes[[&quot;all_r&quot;]]), unlist(boost_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(svm_diabetes[[&quot;all_r&quot;]]) and unlist(boost_diabetes[[&quot;all_r&quot;]])
-## t = 1.1303, df = 9, p-value = 0.2876
+## t = -1.2815, df = 9, p-value = 0.232
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.003004076  0.009004076
+##  -0.013825957  0.003825957
 ## sample estimates:
 ## mean of the differences 
-##                   0.003</code></pre>
+##                  -0.005</code></pre>
 <pre class="r"><code>t.test(unlist(svm_diabetes[[&quot;all_r&quot;]]), unlist(c4.5_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(svm_diabetes[[&quot;all_r&quot;]]) and unlist(c4.5_diabetes[[&quot;all_r&quot;]])
-## t = 3.7861, df = 9, p-value = 0.004309
+## t = 1.9315, df = 9, p-value = 0.08547
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.00829161 0.03290839
+##  -0.001369689  0.017369689
 ## sample estimates:
 ## mean of the differences 
-##                  0.0206</code></pre>
+##                   0.008</code></pre>
 <pre class="r"><code>t.test(unlist(svm_diabetes[[&quot;all_r&quot;]]), unlist(bag_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(svm_diabetes[[&quot;all_r&quot;]]) and unlist(bag_diabetes[[&quot;all_r&quot;]])
-## t = -0.45195, df = 9, p-value = 0.662
+## t = -4.1162, df = 9, p-value = 0.002613
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.010809585  0.007209585
+##  -0.014256089 -0.004143911
 ## sample estimates:
 ## mean of the differences 
-##                 -0.0018</code></pre>
+##                 -0.0092</code></pre>
 <pre class="r"><code>t.test(unlist(svm_diabetes[[&quot;all_r&quot;]]), unlist(rf_diabetes[[&quot;all_r&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(svm_diabetes[[&quot;all_r&quot;]]) and unlist(rf_diabetes[[&quot;all_r&quot;]])
-## t = 0.45716, df = 9, p-value = 0.6584
+## t = -1.9192, df = 9, p-value = 0.08717
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.006317191  0.009517191
+##  -0.014379541  0.001179541
 ## sample estimates:
 ## mean of the differences 
-##                  0.0016</code></pre>
+##                 -0.0066</code></pre>
 <p>the there is now winner for recall metric</p>
 <p>For f-score metric we can notice that Random Forest algorithm is the winner by applying Paired T Test:</p>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_f&quot;]]), unlist(svm_diabetes[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
@@ -2357,62 +2357,65 @@ kable(accuracy_matrix)</code></pre>
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_f&quot;]]) and unlist(svm_diabetes[[&quot;all_f&quot;]])
-## t = -0.51876, df = 9, p-value = 0.6164
+## t = 1.3874, df = 9, p-value = 0.1987
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.007063395  0.004428152
+##  -0.002498588  0.010424759
 ## sample estimates:
 ## mean of the differences 
-##            -0.001317621</code></pre>
+##             0.003963086</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_f&quot;]]), unlist(nb_diabetes[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_f&quot;]]) and unlist(nb_diabetes[[&quot;all_f&quot;]])
-## t = 0.1645, df = 9, p-value = 0.873
+## t = 0.94927, df = 9, p-value = 0.3673
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.003826846  0.004427048
+##  -0.003291322  0.008050876
 ## sample estimates:
 ## mean of the differences 
-##            0.0003001013</code></pre>
+##             0.002379777</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_f&quot;]]), unlist(c4.5_diabetes[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_f&quot;]]) and unlist(c4.5_diabetes[[&quot;all_f&quot;]])
-## t = 2.2531, df = 9, p-value = 0.05075
+## t = 2.9546, df = 9, p-value = 0.0161
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -3.151142e-05  1.562394e-02
+##  0.00235243 0.01772328
 ## sample estimates:
 ## mean of the differences 
-##             0.007796212</code></pre>
+##              0.01003785</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_f&quot;]]), unlist(bag_diabetes[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_f&quot;]]) and unlist(bag_diabetes[[&quot;all_f&quot;]])
-## t = -0.46348, df = 9, p-value = 0.654
+## t = 0.37452, df = 9, p-value = 0.7167
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.010211188  0.006738466
+##  -0.006057979  0.008461887
 ## sample estimates:
 ## mean of the differences 
-##            -0.001736361</code></pre>
+##             0.001201954</code></pre>
 <pre class="r"><code>t.test(unlist(rf_diabetes[[&quot;all_f&quot;]]), unlist(boost_diabetes[[&quot;all_f&quot;]]), paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  unlist(rf_diabetes[[&quot;all_f&quot;]]) and unlist(boost_diabetes[[&quot;all_f&quot;]])
-## t = 2.3324, df = 9, p-value = 0.04457
+## t = 4.6697, df = 9, p-value = 0.001169
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.0002378139 0.0155571411
+##  0.005403146 0.015556708
 ## sample estimates:
 ## mean of the differences 
-##             0.007897478</code></pre>
-<p>so we can deduce that Random Forest is the winner in sonar dataset for all except for Bagging.</p>
+##              0.01047993</code></pre>
+<p>so the difference between Random Forest and other algorithms is significant except for Bagging.</p>
+<div id="so-in-diabetes-dataset-there-is-no-obvious-winner-but-we-can-say-that-random-forest-and-svm-are-good-candidates-the-winner" class="section level5">
+<h5>So in diabetes dataset there is no obvious winner but we can say that Random Forest and SVM are good candidates the winner</h5>
+</div>
 <div id="therefore-there-is-no-algorithm-which-performs-statistically-significantly-better-than-the-other-algorithms-in-all-datasets" class="section level4">
 <h4>Therefore there is No algorithm which performs statistically significantly better than the other algorithms in all datasets</h4>
 </div>

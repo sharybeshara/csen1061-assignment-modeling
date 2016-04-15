@@ -609,7 +609,7 @@ t.test(unlist(rf_sonar[["all_a"]]), unlist(c4.5_sonar[["all_a"]]), paired = TRUE
 t.test(unlist(rf_sonar[["all_a"]]), unlist(bag_sonar[["all_a"]]), paired = TRUE)
 t.test(unlist(rf_sonar[["all_a"]]), unlist(boost_sonar[["all_a"]]), paired = TRUE)
 ```
-Therefore we can deduce that Random Forest is the winner in sonar dataset for accuracy metric.
+Since p-value < 0.05 in all tests so we can deduce that Random Forest is the winner in sonar dataset for accuracy metric.
 
 For precision metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test: 
 ```{r}
@@ -730,7 +730,7 @@ t.test(unlist(nb_spect[["all_f"]]), unlist(bag_spect[["all_f"]]), paired = TRUE)
 t.test(unlist(nb_spect[["all_f"]]), unlist(boost_spect[["all_f"]]), paired = TRUE)
 ```
 so the difference between bagging and other algorithms is significant.
-##### So we can deduce that Naive Bayes is the winner in spect datset
+##### So we can deduce that Naive Bayes and Bagging are the winners in spect datset
 ###In diabetes dataset
 We can notice that Random Forest is the winner for the accuracy metric by applying Paired T Test:
 ```{r}
@@ -794,6 +794,7 @@ t.test(unlist(rf_diabetes[["all_f"]]), unlist(c4.5_diabetes[["all_f"]]), paired 
 t.test(unlist(rf_diabetes[["all_f"]]), unlist(bag_diabetes[["all_f"]]), paired = TRUE)
 t.test(unlist(rf_diabetes[["all_f"]]), unlist(boost_diabetes[["all_f"]]), paired = TRUE)
 ```
-so we can deduce that Random Forest is the winner in sonar dataset for all except for Bagging.
+so the difference between Random Forest and other algorithms is significant except for Bagging.
 
+##### So in diabetes dataset there is no obvious winner but we can say that Random Forest and SVM are good candidates the winner
 ####Therefore there is No algorithm which performs statistically significantly better than the other algorithms in all datasets
