@@ -65,7 +65,7 @@ cat("Accuracy = ", c4.5_cv[["Accuracy"]], ", Error rate = ", c4.5_cv[["Error_rat
 ```
 #####This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times
 
-##3.1 
+##3.1 Other classification algorithms: 
 Random Forest
 ```{r}
 RF <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
@@ -124,7 +124,8 @@ cat("Bagging measures:","Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag
 cat("Boosting measures:", " Accuracy = ", boost[["Accuracy"]], ", Error rate = ", boost[["Error_rate"]], ", Precision = ", boost[["Precision"]], ", Recall = ", boost[["Recall"]], ", F-score = ", boost[["F-score"]])
 ```
 So as expected we can see from the result that all the measures are better in bagging and boosting than in C4.5 classifier.
-##4.1
+
+##4.1.1 Loading new datasets
 Loading hepatitis data:
 ```{r}
 hepa <- read.csv("~/Downloads/hepatitis.data.txt", header=FALSE)
@@ -517,7 +518,7 @@ for(d in boost_diabetes[["list_of_10_folds"]]){
 }
 ```
 
-Formating the evaluation metrics:
+##4.1.2 Formating the evaluation metrics:
 ```{r}
 
 l = c(c4.5_sonar, rf_sonar, svm_sonar, nb_sonar, bag_sonar, boost_sonar)
