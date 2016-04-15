@@ -64,10 +64,11 @@ cat("Accuracy = ", c4.5_cv[["Accuracy"]], ", Error rate = ", c4.5_cv[["Error_rat
 ```
 This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times
 
-Randomforest
+Random Forest
 ```{r}
 RF <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
 randomForest <- RF(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+randomForest
 rf <- measuresMap(randomForest)
 cat("Accuracy = ", rf[["Accuracy"]], ", Error rate = ", rf[["Error_rate"]], ", Precision = ", rf[["Precision"]], ", Recall = ", rf[["Recall"]], ", F-score = ", rf[["F-score"]])
 ```
@@ -75,6 +76,7 @@ cat("Accuracy = ", rf[["Accuracy"]], ", Error rate = ", rf[["Error_rate"]], ", P
 SVM
 ```{r}
 SVM = SMO(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+SVM
 svm <- measuresMap(SVM)
 cat("Accuracy = ", svm[["Accuracy"]], ", Error rate = ", svm[["Error_rate"]], ", Precision = ", svm[["Precision"]], ", Recall = ", svm[["Recall"]], ", F-score = ", svm[["F-score"]])
 ```
@@ -83,21 +85,24 @@ Naive Bayes
 ```{r}
 NB <- make_Weka_classifier("weka/classifiers/bayes/NaiveBayes")
 naiveBayes<- NB(V61~., data=sonar) %>% evaluate_Weka_classifier( numFolds = 10)
+naiveBayes
 nb <- measuresMap(naiveBayes)
 cat("Accuracy = ", nb[["Accuracy"]], ", Error rate = ", nb[["Error_rate"]], ", Precision = ", nb[["Precision"]], ", Recall = ", nb[["Recall"]], ", F-score = ", nb[["F-score"]])
 ```
 
 Neural Networks
 ```{r}
-NN <- make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
-neuralNetwork<- NN(V61~., data=sonar) %>% evaluate_Weka_classifier( numFolds = 10)
-nn <- measuresMap(neuralNetwork)
-cat("Accuracy = ", nn[["Accuracy"]], ", Error rate = ", nn[["Error_rate"]], ", Precision = ", nn[["Precision"]], ", Recall = ", nn[["Recall"]], ", F-score = ", nn[["F-score"]])
+#NN <- make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
+#neuralNetwork<- NN(V61~., data=sonar) %>% evaluate_Weka_classifier( numFolds = 10)
+#neuralNetwork
+#nn <- measuresMap(neuralNetwork)
+#cat("Accuracy = ", nn[["Accuracy"]], ", Error rate = ", nn[["Error_rate"]], ", Precision = ", nn[["Precision"]], ", Recall = ", nn[["Recall"]], ", F-score = ", nn[["F-score"]])
 ```
 
 Bagging:
 ```{r}
 BAG = Bagging(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+BAG
 bag <- measuresMap(BAG)
 cat("Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ", Precision = ", bag[["Precision"]], ", Recall = ", bag[["Recall"]], ", F-score = ", bag[["F-score"]])
 ```
@@ -105,6 +110,7 @@ cat("Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ",
 Boosting:
 ```{r}
 BOOST = AdaBoostM1(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+BOOST
 boost <- measuresMap(BOOST)
 cat("Accuracy = ", boost[["Accuracy"]], ", Error rate = ", boost[["Error_rate"]], ", Precision = ", boost[["Precision"]], ", Recall = ", boost[["Recall"]], ", F-score = ", boost[["F-score"]])
 ```
@@ -137,14 +143,266 @@ diabetes <- read.csv("~/Downloads/pima-indians-diabetes.data.txt", header=FALSE)
 diabetes$V9 <- as.factor(diabetes$V9)
 ```
 
+Forming one function for each dataset: 
 ```{r}
 hepaClassification <- function(c){
   l <- list()
-  
+  accuracy <- 0
+  error_rate <- 0
+  precision <- 0
+  recall <- 0
+  f <- 0
   for(i in 1:10){
     classifier <- c(V1~., data=hepa) %>% evaluate_Weka_classifier(numFolds = 10)
     l[[i]] <- measuresMap(classifier)
+    accuracy <- accuracy + l[[i]][["Accuracy"]]
+    error_rate <- error_rate + l[[i]][["Error_rate"]]
+    precision <- precision + l[[i]][["Precision"]]
+    recall <- recall + l[[i]][["Recall"]]
+    f <- f + l[[i]][["F-score"]]
   }
-  return(l)
+  map <- new.env(hash=T, parent=emptyenv())
+  map[["Accuracy"]] <- accuracy /10
+  map[["Error_rate"]] <- error_rate/10
+  map[["Precision"]]  <- precision/10
+  map[["Recall"]]  <- recall/10
+  map[["F-score"]]  <-f/10
+  map[["list_of_10_folds"]] <- l
+  return(map)
+}
+spectClassification <- function(c){
+  l <- list()
+  accuracy <- 0
+  error_rate <- 0
+  precision <- 0
+  recall <- 0
+  f <- 0
+  for(i in 1:10){
+    classifier <- c(V1~., data=spect) %>% evaluate_Weka_classifier(numFolds = 10)
+    l[[i]] <- measuresMap(classifier)
+    accuracy <- accuracy + l[[i]][["Accuracy"]]
+    error_rate <- error_rate + l[[i]][["Error_rate"]]
+    precision <- precision + l[[i]][["Precision"]]
+    recall <- recall + l[[i]][["Recall"]]
+    f <- f + l[[i]][["F-score"]]
+  }
+  map <- new.env(hash=T, parent=emptyenv())
+  map[["Accuracy"]] <- accuracy /10
+  map[["Error_rate"]] <- error_rate/10
+  map[["Precision"]]  <- precision/10
+  map[["Recall"]]  <- recall/10
+  map[["F-score"]]  <-f/10
+  map[["list_of_10_folds"]] <- l
+  return(map)
+}
+diabetesClassification <- function(c){
+  l <- list()
+  accuracy <- 0
+  error_rate <- 0
+  precision <- 0
+  recall <- 0
+  f <- 0
+  for(i in 1:10){
+    classifier <- c(V9~., data=diabetes) %>% evaluate_Weka_classifier(numFolds = 10)
+    l[[i]] <- measuresMap(classifier)
+    accuracy <- accuracy + l[[i]][["Accuracy"]]
+    error_rate <- error_rate + l[[i]][["Error_rate"]]
+    precision <- precision + l[[i]][["Precision"]]
+    recall <- recall + l[[i]][["Recall"]]
+    f <- f + l[[i]][["F-score"]]
+  }
+  map <- new.env(hash=T, parent=emptyenv())
+  map[["Accuracy"]] <- accuracy / 10
+  map[["Error_rate"]] <- error_rate / 10
+  map[["Precision"]]  <- precision / 10
+  map[["Recall"]]  <- recall / 10
+  map[["F-score"]]  <-f / 10
+  map[["list_of_10_folds"]] <- l
+  return(map)
 }
 ```
+
+Applying C4.5 on the hapatitis dataset and showing the results of each fold :
+```{r}
+c4.5_hepa <- hepaClassification(J48)
+for(d in c4.5_hepa[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying C4.5 on the spect dataset and showing the results of each fold :
+```{r}
+c4.5_spect <- spectClassification(J48)
+for(d in c4.5_spect[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying C4.5 on the diabetes dataset and showing the results of each fold :
+```{r}
+c4.5_diabetes <- diabetesClassification(J48)
+for(d in c4.5_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Random Forest on the hapatitis dataset and showing the results of each fold :
+```{r}
+rf_hepa <- hepaClassification(RF)
+for(d in rf_hepa[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Random Forest on the spect dataset and showing the results of each fold :
+```{r}
+rf_spect <- spectClassification(RF)
+for(d in rf_spect[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Random Forest on the diabetes dataset and showing the results of each fold :
+```{r}
+rf_diabetes <- diabetesClassification(RF)
+for(d in rf_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying SVM on the hapatitis dataset and showing the results of each fold :
+```{r}
+svm_hepa <- hepaClassification(SMO)
+for(d in svm_hepa[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying SVM on the spect dataset and showing the results of each fold :
+```{r}
+svm_spect <- spectClassification(SMO)
+for(d in svm_spect[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying SVM on the diabetes dataset and showing the results of each fold :
+```{r}
+svm_diabetes <- diabetesClassification(NB)
+for(d in svm_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Naive Bayes on the hapatitis dataset and showing the results of each fold :
+```{r}
+nb_hepa <- hepaClassification(NB)
+for(d in nb_hepa[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Naive Bayes on the spect dataset and showing the results of each fold :
+```{r}
+nb_spect <- spectClassification(NB)
+for(d in nb_spect[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Naive Bayes on the diabetes dataset and showing the results of each fold :
+```{r}
+nb_diabetes <- diabetesClassification(NB)
+for(d in nb_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Neural Networks on the hapatitis dataset and showing the results of each fold :
+```{r}
+#nn_hepa <- hepaClassification(NN)
+#for(d in nn_hepa[["list_of_10_folds"]]){
+ #cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+#}
+```
+
+Applying Neural Networks on the spect dataset and showing the results of each fold :
+```{r}
+#nn_spect <- spectClassification(NN)
+#for(d in nn_spect[["list_of_10_folds"]]){
+ #cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", #Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", #d[["F-score"]], "\n")
+#}
+```
+
+Applying Neural Networks on the diabetes dataset and showing the results of each fold :
+```{r}
+#nn_diabetes <- diabetesClassification(NN)
+#for(d in nn_diabetes[["list_of_10_folds"]]){
+ #cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+#}
+```
+
+Formating the evaluation metrics:
+```{r}
+l = c(c4.5_hepa, rf_hepa, svm_hepa, nb_hepa)
+a <- c()
+p <- c()
+r <- c()
+f <- c()
+for(n in l){
+  a <- c(a, n[["Accuracy"]])
+  p <- c(p, n[["Precision"]])
+  r <- c(r, n[["Recall"]])
+  f <- c(f, n[["F-score"]])
+}
+accuracy_matrix = matrix(data = a, nrow = 1)
+precision_matrix = matrix(data = p, nrow = 1)
+recall_matrix = matrix(data = r, nrow = 1)
+f_score_matrix = matrix(data = f, nrow = 1) 
+
+l = c(c4.5_spect, rf_spect, svm_spect, nb_spect)
+a <- c()
+p <-c()
+r <- c()
+f <- c()
+for(n in l){
+  a <- c(a, n[["Accuracy"]])
+  p <- c(p, n[["Precision"]])
+  r <- c(r, n[["Recall"]])
+  f <- c(f, n[["F-score"]])
+}
+accuracy_matrix = rbind(accuracy_matrix, a)
+precision_matrix = rbind(precision_matrix, p)
+recall_matrix = rbind(recall_matrix, r)
+f_score_matrix = rbind(f_score_matrix, f)
+
+l = c(c4.5_diabetes, rf_diabetes, svm_diabetes, nb_diabetes)
+a<- c()
+p <-c()
+r <- c()
+f <- c()
+for(n in l){
+  a <- c(a, n[["Accuracy"]])
+  p <- c(p, n[["Precision"]])
+  r <- c(r, n[["Recall"]])
+  f <- c(f, n[["F-score"]])
+}
+accuracy_matrix = rbind(accuracy_matrix, a)
+precision_matrix = rbind(precision_matrix, p)
+recall_matrix = rbind(recall_matrix, r)
+f_score_matrix = rbind(f_score_matrix, f)
+
+rownames(accuracy_matrix) <- c("hepa", "spect", "diabetes")
+colnames(accuracy_matrix) <- c("C4.5", "RF", "SVM", "NB")
+rownames(precision_matrix) <- c("hepa", "spect", "diabetes")
+colnames(precision_matrix) <- c("C4.5", "RF", "SVM", "NB")
+rownames(recall_matrix) <- c("hepa", "spect", "diabetes")
+colnames(recall_matrix) <- c("C4.5", "RF", "SVM", "NB")
+rownames(f_score_matrix) <- c("hepa", "spect", "diabetes")
+colnames(f_score_matrix) <- c("C4.5", "RF", "SVM", "NB")
+accuracy_matrix
+precision_matrix
+recall_matrix
+f_score_matrix
+```
+
