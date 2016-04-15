@@ -794,6 +794,6 @@ t.test(unlist(rf_diabetes[["all_f"]]), unlist(c4.5_diabetes[["all_f"]]), paired 
 t.test(unlist(rf_diabetes[["all_f"]]), unlist(bag_diabetes[["all_f"]]), paired = TRUE)
 t.test(unlist(rf_diabetes[["all_f"]]), unlist(boost_diabetes[["all_f"]]), paired = TRUE)
 ```
-Therefore we can deduce that Random Forest is the winner in sonar dataset for all except for Bagging.
+so we can deduce that Random Forest is the winner in sonar dataset for all except for Bagging.
 
 ####Therefore there is No algorithm which performs statistically significantly better than the other algorithms in all datasets
