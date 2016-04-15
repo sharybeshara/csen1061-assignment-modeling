@@ -9,14 +9,15 @@ output: html_document
 ```{r message=FALSE}
 library(dplyr)
 library(RWeka)
+library(knitr)
 ```
 
-Loading sonar data:
+##1. Loading sonar data:
 ```{r}
 sonar <- read.csv("~/Desktop/sonar.all-data.csv", header=FALSE)
 ```
 
-Constructing a C4.5 decision tree using the entire dataset
+##2.1 Constructing a C4.5 decision tree using the entire dataset
 ```{r}
 fit <- J48(V61~., data=sonar)
 ```
@@ -51,19 +52,20 @@ cat("Accuracy = ", c4.5[["Accuracy"]], ", Error rate = ", c4.5[["Error_rate"]], 
 ```
 We can notice the over-fitting because the training and testing of the classifier are done with the same dataset.
 
-Testing C4.5classifier using a 10-fold cross-validation:
+##2.2 Testing C4.5classifier using a 10-fold cross-validation:
 ```{r}
 C4.5CV <- evaluate_Weka_classifier(fit, numFolds = 10)
 C4.5CV
 ```
-
+  
 Calculating classification evaluation measures:
 ```{r}
 c4.5_cv <- measuresMap(C4.5CV)
 cat("Accuracy = ", c4.5_cv[["Accuracy"]], ", Error rate = ", c4.5_cv[["Error_rate"]], ", Precision = ", c4.5_cv[["Precision"]], ", Recall = ", c4.5_cv[["Recall"]], ", F-score = ", c4.5_cv[["F-score"]])
 ```
-This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times
+#####This shows the improvement of the results as 10-fold cross validation divide the data into two groups one for training and the other one for testing which is repeated for 10 times
 
+##3.1 
 Random Forest
 ```{r}
 RF <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
@@ -101,7 +103,7 @@ Neural Networks
 
 Bagging:
 ```{r}
-BAG = Bagging(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+BAG = Bagging(V61~., data=sonar, control = Weka_control(W = J48)) %>% evaluate_Weka_classifier(numFolds = 10)
 BAG
 bag <- measuresMap(BAG)
 cat("Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ", Precision = ", bag[["Precision"]], ", Recall = ", bag[["Recall"]], ", F-score = ", bag[["F-score"]])
@@ -109,20 +111,20 @@ cat("Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ",
 
 Boosting:
 ```{r}
-BOOST = AdaBoostM1(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
+BOOST = AdaBoostM1(V61~., data=sonar, control = Weka_control(W = J48)) %>% evaluate_Weka_classifier(numFolds = 10)
 BOOST
 boost <- measuresMap(BOOST)
 cat("Accuracy = ", boost[["Accuracy"]], ", Error rate = ", boost[["Error_rate"]], ", Precision = ", boost[["Precision"]], ", Recall = ", boost[["Recall"]], ", F-score = ", boost[["F-score"]])
 ```
 
-Compare between Bagging, Boosting and C4.5:
+##3.2 Compare between Bagging, Boosting and C4.5:
 ```{r}
 cat("C4.5 measures:"," Accuracy = ", c4.5_cv[["Accuracy"]], ", Error rate = ", c4.5_cv[["Error_rate"]], ", Precision = ", c4.5_cv[["Precision"]], ", Recall = ", c4.5_cv[["Recall"]], ", F-score = ", c4.5_cv[["F-score"]])
 cat("Bagging measures:","Accuracy = ", bag[["Accuracy"]], ", Error rate = ", bag[["Error_rate"]], ", Precision = ", bag[["Precision"]], ", Recall = ", bag[["Recall"]], ", F-score = ", bag[["F-score"]])
 cat("Boosting measures:", " Accuracy = ", boost[["Accuracy"]], ", Error rate = ", boost[["Error_rate"]], ", Precision = ", boost[["Precision"]], ", Recall = ", boost[["Recall"]], ", F-score = ", boost[["F-score"]])
 ```
-So we can see from the result that all the measures are approximetly the same in the 3 classifiers except for the recall which is better in bagging and boosting than in C4.5 classifier.
-
+So as expected we can see from the result that all the measures are better in bagging and boosting than in C4.5 classifier.
+##4.1
 Loading hepatitis data:
 ```{r}
 hepa <- read.csv("~/Downloads/hepatitis.data.txt", header=FALSE)
@@ -145,16 +147,24 @@ diabetes$V9 <- as.factor(diabetes$V9)
 
 Forming one function for each dataset: 
 ```{r}
-hepaClassification <- function(c){
+sonarClassification <- function(c){
   l <- list()
   accuracy <- 0
   error_rate <- 0
   precision <- 0
   recall <- 0
   f <- 0
+  all_a <- list()
+  all_p <- list()
+  all_r <- list()
+  all_f <- list()
   for(i in 1:10){
-    classifier <- c(V1~., data=hepa) %>% evaluate_Weka_classifier(numFolds = 10)
+    classifier <- c(V61~., data=sonar) %>% evaluate_Weka_classifier(numFolds = 10)
     l[[i]] <- measuresMap(classifier)
+    all_a[[i]] <- l[[i]][["Accuracy"]]
+    all_p[[i]] <- l[[i]][["Precision"]]
+    all_r[[i]] <- l[[i]][["Recall"]]
+    all_f[[i]] <- l[[i]][["F-score"]]
     accuracy <- accuracy + l[[i]][["Accuracy"]]
     error_rate <- error_rate + l[[i]][["Error_rate"]]
     precision <- precision + l[[i]][["Precision"]]
@@ -167,6 +177,49 @@ hepaClassification <- function(c){
   map[["Precision"]]  <- precision/10
   map[["Recall"]]  <- recall/10
   map[["F-score"]]  <-f/10
+  map[["list"]] <- list(accuracy / 10, precision / 10, recall / 10, f / 10)
+  map[["all_a"]] <- all_a
+  map[["all_p"]] <- all_p
+  map[["all_r"]] <- all_r
+  map[["all_f"]] <- all_f
+  map[["list_of_10_folds"]] <- l
+  return(map)
+}
+hepaClassification <- function(c){
+  l <- list()
+  accuracy <- 0
+  error_rate <- 0
+  precision <- 0
+  recall <- 0
+  f <- 0
+  all_a <- list()
+  all_p <- list()
+  all_r <- list()
+  all_f <- list()
+  for(i in 1:10){
+    classifier <- c(V1~., data=hepa) %>% evaluate_Weka_classifier(numFolds = 10)
+    l[[i]] <- measuresMap(classifier)
+    all_a[[i]] <- l[[i]][["Accuracy"]]
+    all_p[[i]] <- l[[i]][["Precision"]]
+    all_r[[i]] <- l[[i]][["Recall"]]
+    all_f[[i]] <- l[[i]][["F-score"]]
+    accuracy <- accuracy + l[[i]][["Accuracy"]]
+    error_rate <- error_rate + l[[i]][["Error_rate"]]
+    precision <- precision + l[[i]][["Precision"]]
+    recall <- recall + l[[i]][["Recall"]]
+    f <- f + l[[i]][["F-score"]]
+  }
+  map <- new.env(hash=T, parent=emptyenv())
+  map[["Accuracy"]] <- accuracy /10
+  map[["Error_rate"]] <- error_rate/10
+  map[["Precision"]]  <- precision/10
+  map[["Recall"]]  <- recall/10
+  map[["F-score"]]  <-f/10
+  map[["list"]] <- list(accuracy / 10, precision / 10, recall / 10, f / 10)
+  map[["all_a"]] <- all_a
+  map[["all_p"]] <- all_p
+  map[["all_r"]] <- all_r
+  map[["all_f"]] <- all_f
   map[["list_of_10_folds"]] <- l
   return(map)
 }
@@ -177,9 +230,17 @@ spectClassification <- function(c){
   precision <- 0
   recall <- 0
   f <- 0
+  all_a <- list()
+  all_p <- list()
+  all_r <- list()
+  all_f <- list()
   for(i in 1:10){
     classifier <- c(V1~., data=spect) %>% evaluate_Weka_classifier(numFolds = 10)
     l[[i]] <- measuresMap(classifier)
+    all_a[[i]] <- l[[i]][["Accuracy"]]
+    all_p[[i]] <- l[[i]][["Precision"]]
+    all_r[[i]] <- l[[i]][["Recall"]]
+    all_f[[i]] <- l[[i]][["F-score"]]
     accuracy <- accuracy + l[[i]][["Accuracy"]]
     error_rate <- error_rate + l[[i]][["Error_rate"]]
     precision <- precision + l[[i]][["Precision"]]
@@ -192,6 +253,11 @@ spectClassification <- function(c){
   map[["Precision"]]  <- precision/10
   map[["Recall"]]  <- recall/10
   map[["F-score"]]  <-f/10
+  map[["list"]] <- list(accuracy / 10, precision / 10, recall / 10, f / 10)
+  map[["all_a"]] <- all_a
+  map[["all_p"]] <- all_p
+  map[["all_r"]] <- all_r
+  map[["all_f"]] <- all_f
   map[["list_of_10_folds"]] <- l
   return(map)
 }
@@ -202,9 +268,17 @@ diabetesClassification <- function(c){
   precision <- 0
   recall <- 0
   f <- 0
+  all_a <- list()
+  all_p <- list()
+  all_r <- list()
+  all_f <- list()
   for(i in 1:10){
     classifier <- c(V9~., data=diabetes) %>% evaluate_Weka_classifier(numFolds = 10)
     l[[i]] <- measuresMap(classifier)
+    all_a[[i]] <- l[[i]][["Accuracy"]]
+    all_p[[i]] <- l[[i]][["Precision"]]
+    all_r[[i]] <- l[[i]][["Recall"]]
+    all_f[[i]] <- l[[i]][["F-score"]]
     accuracy <- accuracy + l[[i]][["Accuracy"]]
     error_rate <- error_rate + l[[i]][["Error_rate"]]
     precision <- precision + l[[i]][["Precision"]]
@@ -217,8 +291,21 @@ diabetesClassification <- function(c){
   map[["Precision"]]  <- precision / 10
   map[["Recall"]]  <- recall / 10
   map[["F-score"]]  <-f / 10
+  map[["list"]] <- list(accuracy / 10, precision / 10, recall / 10, f / 10)
+  map[["all_a"]] <- all_a
+  map[["all_p"]] <- all_p
+  map[["all_r"]] <- all_r
+  map[["all_f"]] <- all_f
   map[["list_of_10_folds"]] <- l
   return(map)
+}
+```
+
+Applying C4.5 on the sonar dataset and showing the results of each fold :
+```{r}
+c4.5_sonar <- sonarClassification(J48)
+for(d in c4.5_sonar[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
 }
 ```
 
@@ -242,6 +329,14 @@ Applying C4.5 on the diabetes dataset and showing the results of each fold :
 ```{r}
 c4.5_diabetes <- diabetesClassification(J48)
 for(d in c4.5_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Random Forest on the sonar dataset and showing the results of each fold :
+```{r}
+rf_sonar <- sonarClassification(RF)
+for(d in rf_sonar[["list_of_10_folds"]]){
  cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
 }
 ```
@@ -270,6 +365,14 @@ for(d in rf_diabetes[["list_of_10_folds"]]){
 }
 ```
 
+Applying SVM on the sonar dataset and showing the results of each fold :
+```{r}
+svm_sonar <- sonarClassification(SMO)
+for(d in svm_sonar[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
 Applying SVM on the hapatitis dataset and showing the results of each fold :
 ```{r}
 svm_hepa <- hepaClassification(SMO)
@@ -290,6 +393,14 @@ Applying SVM on the diabetes dataset and showing the results of each fold :
 ```{r}
 svm_diabetes <- diabetesClassification(NB)
 for(d in svm_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Naive Bayes on the sonar dataset and showing the results of each fold :
+```{r}
+nb_sonar <- sonarClassification(NB)
+for(d in nb_sonar[["list_of_10_folds"]]){
  cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
 }
 ```
@@ -342,9 +453,74 @@ Applying Neural Networks on the diabetes dataset and showing the results of each
 #}
 ```
 
+Applying Bagging on the sonar dataset and showing the results of each fold :
+```{r}
+bag_sonar <- sonarClassification(Bagging)
+for(d in bag_sonar[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Bagging on the hapatitis dataset and showing the results of each fold :
+```{r}
+bag_hepa <- hepaClassification(Bagging)
+for(d in bag_hepa[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Bagging on the spect dataset and showing the results of each fold :
+```{r}
+bag_spect <- spectClassification(Bagging)
+for(d in bag_spect[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Bagging on the diabetes dataset and showing the results of each fold :
+```{r}
+bag_diabetes <- diabetesClassification(Bagging)
+for(d in bag_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Boosting on the sonar dataset and showing the results of each fold :
+```{r}
+boost_sonar <- sonarClassification(AdaBoostM1)
+for(d in boost_sonar[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Boosting on the hapatitis dataset and showing the results of each fold :
+```{r}
+boost_hepa <- hepaClassification(AdaBoostM1)
+for(d in boost_hepa[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Boosting on the spect dataset and showing the results of each fold :
+```{r}
+boost_spect <- spectClassification(AdaBoostM1)
+for(d in boost_spect[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
+Applying Boosting on the diabetes dataset and showing the results of each fold :
+```{r}
+boost_diabetes <- diabetesClassification(AdaBoostM1)
+for(d in boost_diabetes[["list_of_10_folds"]]){
+ cat("Accuracy = ", d[["Accuracy"]], ", Error rate = ", d[["Error_rate"]], ", Precision = ", d[["Precision"]], ", Recall = ", d[["Recall"]], ", F-score = ", d[["F-score"]], "\n")
+}
+```
+
 Formating the evaluation metrics:
 ```{r}
-l = c(c4.5_hepa, rf_hepa, svm_hepa, nb_hepa)
+
+l = c(c4.5_sonar, rf_sonar, svm_sonar, nb_sonar, bag_sonar, boost_sonar)
 a <- c()
 p <- c()
 r <- c()
@@ -360,7 +536,23 @@ precision_matrix = matrix(data = p, nrow = 1)
 recall_matrix = matrix(data = r, nrow = 1)
 f_score_matrix = matrix(data = f, nrow = 1) 
 
-l = c(c4.5_spect, rf_spect, svm_spect, nb_spect)
+l = c(c4.5_hepa, rf_hepa, svm_hepa, nb_hepa, bag_hepa, boost_hepa)
+a <- c()
+p <- c()
+r <- c()
+f <- c()
+for(n in l){
+  a <- c(a, n[["Accuracy"]])
+  p <- c(p, n[["Precision"]])
+  r <- c(r, n[["Recall"]])
+  f <- c(f, n[["F-score"]])
+}
+accuracy_matrix = rbind(accuracy_matrix, a)
+precision_matrix = rbind(precision_matrix, p)
+recall_matrix = rbind(recall_matrix, r)
+f_score_matrix = rbind(f_score_matrix, f)
+
+l = c(c4.5_spect, rf_spect, svm_spect, nb_spect, bag_spect, boost_spect)
 a <- c()
 p <-c()
 r <- c()
@@ -376,7 +568,7 @@ precision_matrix = rbind(precision_matrix, p)
 recall_matrix = rbind(recall_matrix, r)
 f_score_matrix = rbind(f_score_matrix, f)
 
-l = c(c4.5_diabetes, rf_diabetes, svm_diabetes, nb_diabetes)
+l = c(c4.5_diabetes, rf_diabetes, svm_diabetes, nb_diabetes, bag_diabetes, boost_diabetes)
 a<- c()
 p <-c()
 r <- c()
@@ -392,17 +584,215 @@ precision_matrix = rbind(precision_matrix, p)
 recall_matrix = rbind(recall_matrix, r)
 f_score_matrix = rbind(f_score_matrix, f)
 
-rownames(accuracy_matrix) <- c("hepa", "spect", "diabetes")
-colnames(accuracy_matrix) <- c("C4.5", "RF", "SVM", "NB")
-rownames(precision_matrix) <- c("hepa", "spect", "diabetes")
-colnames(precision_matrix) <- c("C4.5", "RF", "SVM", "NB")
-rownames(recall_matrix) <- c("hepa", "spect", "diabetes")
-colnames(recall_matrix) <- c("C4.5", "RF", "SVM", "NB")
-rownames(f_score_matrix) <- c("hepa", "spect", "diabetes")
-colnames(f_score_matrix) <- c("C4.5", "RF", "SVM", "NB")
-accuracy_matrix
-precision_matrix
-recall_matrix
-f_score_matrix
+rownames(accuracy_matrix) <- c("sonar","hepa", "spect", "diabetes")
+colnames(accuracy_matrix) <- c("C4.5", "RF", "SVM", "NB", "Bagging", "Boosting")
+rownames(precision_matrix) <- c("sonar","hepa", "spect", "diabetes")
+colnames(precision_matrix) <- c("C4.5", "RF", "SVM", "NB", "Bagging", "Boosting")
+rownames(recall_matrix) <- c("sonar","hepa", "spect", "diabetes")
+colnames(recall_matrix) <- c("C4.5", "RF", "SVM", "NB", "Bagging", "Boosting")
+rownames(f_score_matrix) <- c("sonar","hepa", "spect", "diabetes")
+colnames(f_score_matrix) <- c("C4.5", "RF", "SVM", "NB", "Bagging", "Boosting")
+kable(accuracy_matrix)
+kable(precision_matrix)
+kable(recall_matrix)
+kable(f_score_matrix)
 ```
 
+##4.2 Comparison:
+###In sonar dataset:
+For accuracy metric we can easily notice from the accuracy matrix that Random Forest algorithm is the winner but we need to use Student’s Paired T Test to detect if the metric differences are statistically significant to do so we can apply t test on the 10 values of accuracy that we from each classifier :
+```{r}
+t.test(unlist(rf_sonar[["all_a"]]), unlist(svm_sonar[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_a"]]), unlist(nb_sonar[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_a"]]), unlist(c4.5_sonar[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_a"]]), unlist(bag_sonar[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_a"]]), unlist(boost_sonar[["all_a"]]), paired = TRUE)
+```
+Therefore we can deduce that Random Forest is the winner in sonar dataset for accuracy metric.
+
+For precision metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test: 
+```{r}
+t.test(unlist(rf_sonar[["all_p"]]), unlist(svm_sonar[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_p"]]), unlist(nb_sonar[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_p"]]), unlist(c4.5_sonar[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_p"]]), unlist(bag_sonar[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_p"]]), unlist(boost_sonar[["all_p"]]), paired = TRUE)
+```
+Therefore we can deduce that Random Forest is the winner in sonar dataset for precision metric.
+
+For recall metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test: 
+```{r}
+t.test(unlist(rf_sonar[["all_r"]]), unlist(svm_sonar[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_r"]]), unlist(nb_sonar[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_r"]]), unlist(c4.5_sonar[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_r"]]), unlist(bag_sonar[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_r"]]), unlist(boost_sonar[["all_r"]]), paired = TRUE)
+```
+Therefore we can deduce that Random Forest is the winner in sonar dataset for recall metric.
+
+For f-score metric we can easily notice that Random Forest algorithm is the winner by applying Paired T Test:
+```{r}
+t.test(unlist(rf_sonar[["all_f"]]), unlist(svm_sonar[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_f"]]), unlist(nb_sonar[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_f"]]), unlist(c4.5_sonar[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_f"]]), unlist(bag_sonar[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_sonar[["all_f"]]), unlist(boost_sonar[["all_f"]]), paired = TRUE)
+```
+Therefore we can deduce that Random Forest is the winner in sonar dataset for all metrics.
+##### So we can conclude that Random forest is the winner algorithm in sonar dataset
+###In hepatitis dataset:
+We can notice that c4.5 is the winner for the accuracy metric by applying Paired T Test:
+```{r}
+t.test(unlist(c4.5_hepa[["all_a"]]), unlist(svm_hepa[["all_a"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_a"]]), unlist(nb_hepa[["all_a"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_a"]]), unlist(rf_hepa[["all_a"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_a"]]), unlist(bag_hepa[["all_a"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_a"]]), unlist(boost_hepa[["all_a"]]), paired = TRUE)
+```
+So we can deduce that the difference between accuracy of c4.5 and all algorithms is significant except for naive bayes
+
+We can notice that Random Forest is the winner for the precision metric by applying Paired T Test:
+```{r}
+t.test(unlist(rf_hepa[["all_p"]]), unlist(svm_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_hepa[["all_p"]]), unlist(nb_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_hepa[["all_p"]]), unlist(c4.5_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_hepa[["all_p"]]), unlist(bag_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_hepa[["all_p"]]), unlist(boost_hepa[["all_p"]]), paired = TRUE)
+```
+results of T test cannot show the significant difference between Random Forest and other algorithms so we can try c4.5 as it's the second winner:
+```{r}
+t.test(unlist(c4.5_hepa[["all_p"]]), unlist(svm_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_p"]]), unlist(nb_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_p"]]), unlist(rf_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_p"]]), unlist(bag_hepa[["all_p"]]), paired = TRUE)
+t.test(unlist(c4.5_hepa[["all_p"]]), unlist(boost_hepa[["all_p"]]), paired = TRUE)
+```
+so we can deduce the segnificant difference for all algorithms except for rf
+
+For recall metric we can notice that Naive Bayes is the winner by applying T test:
+```{r}
+t.test(unlist(nb_hepa[["all_r"]]), unlist(svm_hepa[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_r"]]), unlist(c4.5_hepa[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_r"]]), unlist(rf_hepa[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_r"]]), unlist(bag_hepa[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_r"]]), unlist(boost_hepa[["all_r"]]), paired = TRUE)
+```
+so we can see the difference between Naive Bayes and other algorithms is signifcant
+
+For f-score metric we can notice that Naive Bayes is the winner by applying T test:
+```{r}
+t.test(unlist(nb_hepa[["all_f"]]), unlist(svm_hepa[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_f"]]), unlist(c4.5_hepa[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_f"]]), unlist(rf_hepa[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_f"]]), unlist(bag_hepa[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_hepa[["all_f"]]), unlist(boost_hepa[["all_f"]]), paired = TRUE)
+```
+so we can see the difference between Naive Bayes and other algorithms is signifcant
+##### So we can deduce that C4.5 and Naive Bayes are similarly winning in hepatities datset
+###In spect dataset:
+For accuracy metric we can notice that Bagging is the winner by applying T test:
+```{r}
+t.test(unlist(bag_spect[["all_a"]]), unlist(svm_spect[["all_a"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_a"]]), unlist(c4.5_spect[["all_a"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_a"]]), unlist(rf_spect[["all_a"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_a"]]), unlist(nb_spect[["all_a"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_a"]]), unlist(boost_spect[["all_a"]]), paired = TRUE)
+```
+so the difference between bagging and other algorithms is significant except for Random Forest and SVM. 
+
+For precision metric we can notice that Bagging is the winner by applying T test:
+```{r}
+t.test(unlist(bag_spect[["all_p"]]), unlist(svm_spect[["all_p"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_p"]]), unlist(c4.5_spect[["all_p"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_p"]]), unlist(rf_spect[["all_p"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_p"]]), unlist(nb_spect[["all_p"]]), paired = TRUE)
+t.test(unlist(bag_spect[["all_p"]]), unlist(boost_spect[["all_p"]]), paired = TRUE)
+```
+so the difference between bagging and other algorithms is significant except for SVM.
+
+For precision metric we can notice that Naive Bayes is the winner by applying T test:
+```{r}
+t.test(unlist(nb_spect[["all_r"]]), unlist(svm_spect[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_r"]]), unlist(c4.5_spect[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_r"]]), unlist(rf_spect[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_r"]]), unlist(bag_spect[["all_r"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_r"]]), unlist(boost_spect[["all_r"]]), paired = TRUE)
+```
+so the difference between bagging and other algorithms is significant.
+
+For F-score metric we can notice that Naive Bayes is the winner by applying T test:
+```{r}
+t.test(unlist(nb_spect[["all_f"]]), unlist(svm_spect[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_f"]]), unlist(c4.5_spect[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_f"]]), unlist(rf_spect[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_f"]]), unlist(bag_spect[["all_f"]]), paired = TRUE)
+t.test(unlist(nb_spect[["all_f"]]), unlist(boost_spect[["all_f"]]), paired = TRUE)
+```
+so the difference between bagging and other algorithms is significant.
+##### So we can deduce that Naive Bayes is the winner in spect datset
+###In diabetes dataset
+We can notice that Random Forest is the winner for the accuracy metric by applying Paired T Test:
+```{r}
+t.test(unlist(rf_diabetes[["all_a"]]), unlist(svm_diabetes[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_a"]]), unlist(nb_diabetes[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_a"]]), unlist(c4.5_diabetes[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_a"]]), unlist(bag_diabetes[["all_a"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_a"]]), unlist(boost_diabetes[["all_a"]]), paired = TRUE)
+```
+so the difference between Random Forest and other algorithms is significant except for SVM and Bagging.
+
+We can notice that Random Forest is the winner for the precision metric by applying Paired T Test:
+```{r}
+t.test(unlist(rf_diabetes[["all_p"]]), unlist(svm_diabetes[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_p"]]), unlist(nb_diabetes[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_p"]]), unlist(c4.5_diabetes[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_p"]]), unlist(bag_diabetes[["all_p"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_p"]]), unlist(boost_diabetes[["all_p"]]), paired = TRUE)
+```
+so the difference between Random Forest and other algorithms is significant except for SVM and C4.5.
+
+We can notice that there is now winner classifier as the difference between classifiers are small so we try to calculate T test for Bagging with other classifiers
+```{r}
+t.test(unlist(bag_diabetes[["all_r"]]), unlist(svm_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(bag_diabetes[["all_r"]]), unlist(nb_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(bag_diabetes[["all_r"]]), unlist(c4.5_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(bag_diabetes[["all_r"]]), unlist(rf_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(bag_diabetes[["all_r"]]), unlist(boost_diabetes[["all_r"]]), paired = TRUE)
+```
+then we try Random forest with the other classifiers:
+```{r}
+t.test(unlist(rf_diabetes[["all_r"]]), unlist(svm_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_r"]]), unlist(nb_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_r"]]), unlist(c4.5_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_r"]]), unlist(bag_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_r"]]), unlist(boost_diabetes[["all_r"]]), paired = TRUE)
+```
+then we try Boosting :
+```{r}
+t.test(unlist(boost_diabetes[["all_r"]]), unlist(svm_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(boost_diabetes[["all_r"]]), unlist(nb_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(boost_diabetes[["all_r"]]), unlist(c4.5_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(boost_diabetes[["all_r"]]), unlist(bag_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(boost_diabetes[["all_r"]]), unlist(rf_diabetes[["all_r"]]), paired = TRUE)
+```
+then we try Naive Bayes
+```{r}
+t.test(unlist(svm_diabetes[["all_r"]]), unlist(nb_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(svm_diabetes[["all_r"]]), unlist(boost_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(svm_diabetes[["all_r"]]), unlist(c4.5_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(svm_diabetes[["all_r"]]), unlist(bag_diabetes[["all_r"]]), paired = TRUE)
+t.test(unlist(svm_diabetes[["all_r"]]), unlist(rf_diabetes[["all_r"]]), paired = TRUE)
+```
+the there is now winner for recall metric
+
+For f-score metric we can notice that Random Forest algorithm is the winner by applying Paired T Test:
+```{r}
+t.test(unlist(rf_diabetes[["all_f"]]), unlist(svm_diabetes[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_f"]]), unlist(nb_diabetes[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_f"]]), unlist(c4.5_diabetes[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_f"]]), unlist(bag_diabetes[["all_f"]]), paired = TRUE)
+t.test(unlist(rf_diabetes[["all_f"]]), unlist(boost_diabetes[["all_f"]]), paired = TRUE)
+```
+Therefore we can deduce that Random Forest is the winner in sonar dataset for all except for Bagging.
+
+####Therefore there is No algorithm which performs statistically significantly better than the other algorithms in all datasets
